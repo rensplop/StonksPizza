@@ -26,5 +26,8 @@ class Bestelling extends Model
             return $regel->regelPrijs();
         });
     }
+
+    protected $casts = ['status' => BestelStatus::class];
+    
 }
 

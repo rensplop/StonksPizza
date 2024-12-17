@@ -18,3 +18,15 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+use App\Http\Controllers\KlantController;
+use App\Http\Controllers\BestellingController;
+use App\Http\Controllers\BestelregelController;
+use App\Http\Controllers\PizzaController;
+use App\Http\Controllers\IngredientController;
+
+Route::resource('klanten', KlantController::class);
+Route::resource('bestellingen', BestellingController::class);
+Route::resource('bestelregels', BestelregelController::class);
+Route::resource('pizzas', PizzaController::class);
+Route::resource('ingredients', IngredientController::class);

@@ -23,4 +23,7 @@ class Bestelregel extends Model
     {
         return $this->aantal * $this->pizza->prijs();
     }
+
+    protected $casts = ['afmeting' => PizzaAfmeting::class];
+    
 }
