@@ -8,7 +8,15 @@
 </head>
 <body class="bg-gray-100 text-gray-800 font-sans">
     <header class="bg-yellow-500 text-white shadow-lg py-6">
-        <h1 class="text-4xl text-center font-bold tracking-wide">Pizzeria</h1>
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-4xl font-bold tracking-wide">Pizzeria</h1>
+            <nav class="space-x-6">
+                <a href="#" class="text-white hover:text-yellow-300 transition duration-300">Home</a>
+                <a href="#menu" class="text-white hover:text-yellow-300 transition duration-300">Menu</a>
+                <a href="#about" class="text-white hover:text-yellow-300 transition duration-300">About</a>
+                <a href="#contact" class="text-white hover:text-yellow-300 transition duration-300">Contact</a>
+            </nav>
+        </div>
     </header>
 
     <main class="container mx-auto px-4 py-8">
