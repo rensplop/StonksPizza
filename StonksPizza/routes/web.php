@@ -34,3 +34,24 @@ Route::resource('bestellingen', BestellingController::class);
 Route::resource('bestelregels', BestelregelController::class);
 Route::resource('pizzas', PizzaController::class);
 Route::resource('ingredients', IngredientController::class);
+
+Route::get('/', function () {
+    return view('Index');
+})->name('home');
+
+Route::get('/about', function () {
+    return view('about');
+})->name('about');
+
+Route::get('/menu', function () {
+    return view('menu');
+})->name('menu');
+
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact');
+
+Route::get('/order', function () {
+    return view('order');
+})->name('order');
+
