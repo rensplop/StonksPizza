@@ -29,11 +29,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
-Route::get('/pizzaria', function () {
-    return view('Pizzaria.Index');
+Route::get('/', function () {
+    return view('pizzaria.index');  
 });
+
 
 require __DIR__.'/auth.php';
