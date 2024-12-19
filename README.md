@@ -5,7 +5,6 @@
 </h1>
 
 <p align="center" style="font-family: 'Comic Sans MS', cursive, sans-serif; color: #4b0082; font-size: 24px; background: linear-gradient(45deg, #ff69b4, #87ceeb); padding: 10px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);">
-  A ridiculously stylish heading for a quirky topic.
 </p>
 
 ## License
