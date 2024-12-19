@@ -19,9 +19,10 @@ class PizzaController extends Controller
 
     public function create()
     {
-        $ingredients = Ingredient::all();  
-        return view('pizza.create', compact('ingredients'));
+        $ingredients = Ingredient::all();  // Get all ingredients for selection
+        return view('menu.create', compact('ingredients'));  // Updated to match the path
     }
+    
 
     public function store(Request $request)
     {

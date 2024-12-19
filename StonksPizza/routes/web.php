@@ -10,6 +10,7 @@ use App\Http\Controllers\BestelregelController;
 use App\Http\Controllers\IngredientController;
 
 Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');  // Shows all pizzas
+Route::get('/pizza/create', [PizzaController::class, 'create'])->name('pizza.create');
 
 Route::resource('pizza', PizzaController::class)->except(['index']);
 
@@ -23,6 +24,8 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
