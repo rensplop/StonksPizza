@@ -26,19 +26,23 @@ class PizzaController extends Controller
 
     public function store(Request $request)
     {
+        // Validate incoming data
         $request->validate([
             'naam' => 'required|string|max:255',
-            'ingredienten' => 'required|array',
+            'ingredienten' => 'required|array', // Ensure at least one ingredient is selected
         ]);
-
+    
+        // Create the new pizza
         $pizza = Pizza::create([
             'naam' => $request->naam
         ]);
-
+    
+        // Attach selected ingredients to the pizza
         $pizza->ingredienten()->attach($request->ingredienten);
-
+    
         return redirect()->route('pizza.index')->with('success', 'Pizza created!');
     }
+    
 
     public function edit(Pizza $pizza)
     {
