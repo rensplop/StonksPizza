@@ -3,121 +3,43 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nightclub Pizzeria</title>
-    <style>
-        body {
-            margin: 0;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 100vh;
-            background-color: #000;
-            color: #fff;
-            font-family: 'Arial', sans-serif;
-        }
-
-        header {
-            width: 100%;
-            text-align: center;
-            padding: 20px;
-            background: linear-gradient(90deg, #ff00ff, #0000ff);
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        header h1 {
-            font-size: 5rem;
-            text-transform: uppercase;
-            color: #fff;
-            text-shadow: 0 0 20px #ff00ff, 0 0 40px #0000ff, 0 0 60px #ff00ff;
-            animation: glow 2s infinite alternate;
-        }
-
-        @keyframes glow {
-            from {
-                text-shadow: 0 0 10px #ff00ff, 0 0 20px #0000ff;
-            }
-            to {
-                text-shadow: 0 0 30px #ff00ff, 0 0 60px #0000ff;
-            }
-        }
-
-        main {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-        }
-
-        main h2 {
-            font-size: 2.5rem;
-            margin: 20px 0;
-            color: #ffcc00;
-        }
-
-        main p {
-            font-size: 1.2rem;
-            line-height: 1.5;
-            max-width: 800px;
-            color: #ccc;
-        }
-
-        .button {
-            margin-top: 20px;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            color: #fff;
-            background: #ff00ff;
-            border: none;
-            border-radius: 30px;
-            cursor: pointer;
-            box-shadow: 0 0 20px #ff00ff;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-
-        .button:hover {
-            transform: scale(1.1);
-            box-shadow: 0 0 30px #ff00ff, 0 0 60px #0000ff;
-        }
-
-        footer {
-            margin-top: auto;
-            padding: 20px;
-            text-align: center;
-            color: #555;
-            background: #111;
-            width: 100%;
-            box-shadow: 0 -4px 20px rgba(0, 0, 0, 0.5);
-        }
-
-        footer p {
-            margin: 0;
-        }
-
-        footer a {
-            color: #ff00ff;
-            text-decoration: none;
-        }
-
-        footer a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <title>Pizzeria</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <header>
-        <h1>Stonks Nightclub & Pizzeria</h1>
+<body class="bg-gray-100 text-gray-800 font-sans">
+    <header class="bg-yellow-500 text-white shadow-lg py-6">
+        <h1 class="text-4xl text-center font-bold tracking-wide">Pizzeria</h1>
     </header>
 
-    <main>
-        <h2>Where Pizza Meets the Party</h2>
-        <p>Welcome to Nightclub Pizzeria! The only place where the beats are as hot as the oven and the vibes are as fresh as our ingredients. Enjoy our signature neon-lit atmosphere and indulge in our gourmet pizzas while dancing the night away!</p>
-        <button class="button">Order Now</button>
+    <main class="container mx-auto px-4 py-8">
+        <h2 class="text-3xl font-semibold text-center mb-4">Delicious Pizza, Made Fresh</h2>
+        <p class="text-center text-lg text-gray-600 max-w-2xl mx-auto mb-6">Welcome to our Pizzeria! Indulge in our freshly made pizzas, crafted with the finest ingredients and baked to perfection. Experience the taste of tradition with every bite.</p>
+
+        <div class="flex justify-center">
+            <button class="bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-red-600 transition duration-300 ease-in-out">Order Now</button>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+            <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
+                <img src="/resources/Images/margherita.jpg" alt="Classic Margherita" class="w-full rounded-md mb-4">
+                <h3 class="text-xl font-semibold mb-2">Classic Margherita</h3>
+                <p class="text-gray-600">A timeless favorite topped with fresh tomatoes, mozzarella, and basil.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
+                <img src="/resources/Images/pepperoni.jpg" alt="Pepperoni Feast" class="w-full rounded-md mb-4">
+                <h3 class="text-xl font-semibold mb-2">Pepperoni Feast</h3>
+                <p class="text-gray-600">Loaded with spicy pepperoni and gooey mozzarella cheese.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
+                <img src="/resources/Images/veggie.jpg" alt="Veggie Delight" class="w-full rounded-md mb-4">
+                <h3 class="text-xl font-semibold mb-2">Veggie Delight</h3>
+                <p class="text-gray-600">A colorful mix of fresh veggies on a bed of savory tomato sauce.</p>
+            </div>
+        </div>
     </main>
 
-    <footer>
-        <p>&copy; 2024 Nightclub Pizzeria. All Rights Reserved. <a href="#">Privacy Policy</a></p>
+    <footer class="bg-gray-800 text-gray-400 text-center py-4 mt-8">
+        <p>&copy; 2024 Pizzeria. All Rights Reserved. <a href="#" class="text-yellow-500 hover:underline">Privacy Policy</a></p>
     </footer>
 </body>
 </html>
