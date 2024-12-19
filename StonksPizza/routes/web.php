@@ -3,6 +3,11 @@
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\MenuController;
+
+Route::get('/menu', [MenuController::class, 'index'])->name('menu.index');
+
+
 Route::get('/', function () {
     return view('welcome');
 });
@@ -34,3 +39,4 @@ Route::resource('bestellingen', BestellingController::class);
 Route::resource('bestelregels', BestelregelController::class);
 Route::resource('pizzas', PizzaController::class);
 Route::resource('ingredients', IngredientController::class);
+
