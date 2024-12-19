@@ -26,12 +26,12 @@
                 <p class="text-gray-600">A timeless favorite topped with fresh tomatoes, mozzarella, and basil.</p>
             </div>
             <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
-                <img src="/resources/Images/pepperoni.jpg" alt="Pepperoni Feast" class="w-full rounded-md mb-4">
+                <img src="/resources/Images/pepperoni.webp" alt="Pepperoni Feast" class="w-full rounded-md mb-4">
                 <h3 class="text-xl font-semibold mb-2">Pepperoni Feast</h3>
                 <p class="text-gray-600">Loaded with spicy pepperoni and gooey mozzarella cheese.</p>
             </div>
             <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
-                <img src="/resources/Images/veggie.jpg" alt="Veggie Delight" class="w-full rounded-md mb-4">
+                <img src="/resources/Images/veggie.webp" alt="Veggie Delight" class="w-full rounded-md mb-4">
                 <h3 class="text-xl font-semibold mb-2">Veggie Delight</h3>
                 <p class="text-gray-600">A colorful mix of fresh veggies on a bed of savory tomato sauce.</p>
             </div>
