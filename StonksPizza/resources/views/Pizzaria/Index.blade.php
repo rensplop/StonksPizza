@@ -20,18 +20,18 @@
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-            <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition duration-300">
-                <img src="https://via.placeholder.com/300" alt="Classic Margherita" class="w-full rounded-md mb-4">
+            <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
+                <img src="/resources/Images/margherita.jpg" alt="Classic Margherita" class="w-full rounded-md mb-4">
                 <h3 class="text-xl font-semibold mb-2">Classic Margherita</h3>
                 <p class="text-gray-600">A timeless favorite topped with fresh tomatoes, mozzarella, and basil.</p>
             </div>
-            <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition duration-300">
-                <img src="https://via.placeholder.com/300" alt="Pepperoni Feast" class="w-full rounded-md mb-4">
+            <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
+                <img src="/resources/Images/pepperoni.jpg" alt="Pepperoni Feast" class="w-full rounded-md mb-4">
                 <h3 class="text-xl font-semibold mb-2">Pepperoni Feast</h3>
                 <p class="text-gray-600">Loaded with spicy pepperoni and gooey mozzarella cheese.</p>
             </div>
-            <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transition duration-300">
-                <img src="https://via.placeholder.com/300" alt="Veggie Delight" class="w-full rounded-md mb-4">
+            <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
+                <img src="/resources/Images/veggie.jpg" alt="Veggie Delight" class="w-full rounded-md mb-4">
                 <h3 class="text-xl font-semibold mb-2">Veggie Delight</h3>
                 <p class="text-gray-600">A colorful mix of fresh veggies on a bed of savory tomato sauce.</p>
             </div>
