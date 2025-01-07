@@ -49,8 +49,9 @@ Route::get('/about', function () {
 })->name('about.index');
 
 Route::get('/contact', function () {
-    return view('contact');
+    return view('Contact.Index');
 })->name('contact.index');
+
 
 
 
