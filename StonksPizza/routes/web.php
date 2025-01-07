@@ -9,8 +9,10 @@ use App\Http\Controllers\BestellingController;
 use App\Http\Controllers\BestelregelController;
 use App\Http\Controllers\IngredientController;
 
+Route::get('/menu', [PizzaController::class, 'index'])->name('orders.index');  
+
 // List all pizzas at /menu
-Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');  
+Route::get('/AdminMenu', [PizzaController::class, 'index'])->name('menu.index');  
 
 // Show create form
 Route::get('/pizza/create', [PizzaController::class, 'create'])->name('pizza.create');

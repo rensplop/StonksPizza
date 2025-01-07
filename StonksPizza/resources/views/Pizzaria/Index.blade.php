@@ -26,11 +26,9 @@
             Welcome to our Pizzeria! Indulge in our freshly made pizzas, crafted with the finest ingredients and baked to perfection. Experience the taste of tradition with every bite.
         </p>
 
-        <div class="flex justify-center">
-            <button class="bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-red-600 transition duration-300 ease-in-out">
-                Order Now
-            </button>
-        </div>
+        <form action="{{ route('orders.index') }}" method="get" class="flex justify-center">
+            <button class="bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-red-600 transition duration-300 ease-in-out">Order Now</button>
+        </form>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
             <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
