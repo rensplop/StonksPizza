@@ -13,71 +13,60 @@ class PizzaController extends Controller
         $pizzas = Pizza::with('ingredienten')->get();
         $ingredients = Ingredient::all();
 
-        return view('menu.index', compact('pizzas', 'ingredients'));
+        // Points to resources/views/Menu/Index.blade.php
+        return view('Menu.index', compact('pizzas', 'ingredients'));
     }
 
     public function create()
     {
-        $ingredients = Ingredient::all();  
-        return view('menu.create', compact('ingredients'));
+        $ingredients = Ingredient::all();
+
+        // Points to resources/views/Menu/Create.blade.php
+        return view('Menu.create', compact('ingredients'));
     }
 
     public function store(Request $request)
     {
-        // Validate incoming data
         $request->validate([
-            'naam'         => 'required|string|max:255',
+            'naam' => 'required|string|max:255',
             'ingredienten' => 'required|array',
         ]);
 
-        // Create the new pizza
-        $pizza = Pizza::create([
-            'naam' => $request->naam
-        ]);
-
-        // Attach selected ingredients to the pizza
+        $pizza = Pizza::create(['naam' => $request->naam]);
         $pizza->ingredienten()->attach($request->ingredienten);
 
-        // Redirect to the “menu.index” route (where the user sees the list of pizzas)
-        return redirect()->route('menu.index')
-                         ->with('success', 'Pizza created!');
+        // Redirect back to /menu
+        return redirect()->route('menu.index')->with('success', 'Pizza created!');
     }
 
     public function edit(Pizza $pizza)
     {
         $ingredients = Ingredient::all();
-        return view('pizza.edit', compact('pizza', 'ingredients'));
+
+        // Points to resources/views/Menu/Edit.blade.php
+        return view('Menu.edit', compact('pizza', 'ingredients'));
     }
 
     public function update(Request $request, Pizza $pizza)
     {
         $request->validate([
-            'naam'         => 'required|string|max:255',
+            'naam' => 'required|string|max:255',
             'ingredienten' => 'required|array',
         ]);
 
-        $pizza->update([
-            'naam' => $request->naam
-        ]);
-
-        // Sync the selected ingredients
+        $pizza->update(['naam' => $request->naam]);
         $pizza->ingredienten()->sync($request->ingredienten);
 
-        // Redirect to “menu.index”
-        return redirect()->route('menu.index')
-                         ->with('success', 'Pizza updated!');
+        // Redirect back to /menu
+        return redirect()->route('menu.index')->with('success', 'Pizza updated!');
     }
 
     public function destroy(Pizza $pizza)
     {
-        // Detach all ingredients first
         $pizza->ingredienten()->detach();
-
-        // Then delete the pizza record
         $pizza->delete();
 
-        // Redirect to “menu.index”
-        return redirect()->route('menu.index')
-                         ->with('success', 'Pizza deleted!');
+        // Redirect back to /menu
+        return redirect()->route('menu.index')->with('success', 'Pizza deleted!');
     }
 }
