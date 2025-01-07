@@ -11,17 +11,7 @@ class Pizza extends Model
 
     public function ingredienten(): BelongsToMany
     {
-        return $this->belongsToMany(Ingredient::class);
-    }
-
-    public function ingredientErbij(Ingredient $ingredient)
-    {
-        $this->ingredienten()->attach($ingredient);
-    }
-
-    public function ingredientErAf(Ingredient $ingredient)
-    {
-        $this->ingredienten()->detach($ingredient);
+        return $this->belongsToMany(Ingredient::class, 'ingredient_pizza');  // Using 'ingredient_pizza' pivot table
     }
 
     public function prijs(): float

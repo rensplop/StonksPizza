@@ -2,16 +2,18 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Ingredient;
 
-class IngredientsTableSeeder extends Seeder
+class IngredientSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
-    public function run(): void
+    public function run()
     {
-        //
+        Ingredient::create(['naam' => 'Tomato', 'prijs' => 0,99]);
+        Ingredient::create(['naam' => 'Cheese', 'prijs' => 1,99]);
+        Ingredient::create(['naam' => 'Mushroom', 'prijs' => 12,99]);
+        Ingredient::create(['naam' => 'Pepperoni', 'prijs' => 1,99]);
+        Ingredient::create(['naam' => 'Olives', 'prijs' => 29,99]);
+        Ingredient::create(['naam' => 'Onions', 'prijs' => 59,99]);
     }
 }
