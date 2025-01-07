@@ -27,4 +27,10 @@
         <!-- Submit Button -->
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded">Create Pizza</button>
     </form>
+    <footer class="bg-gray-800 text-gray-400 text-center py-4">
+        <p>
+            &copy; 2024 Pizzeria. Alle Rechten Voorbehouden.
+            <a href="#" class="text-yellow-500 hover:underline">Privacy Policy</a>
+        </p>
+    </footer>
 @endsection

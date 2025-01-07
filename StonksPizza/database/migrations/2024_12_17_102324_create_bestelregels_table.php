@@ -6,25 +6,30 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up()
     {
         Schema::create('bestelregels', function (Blueprint $table) {
             $table->id();
             $table->integer('aantal');
             $table->string('afmeting');
-            $table->foreignId('pizza_id')->constrained()->cascadeOnDelete();
-            $table->foreignId('bestelling_id')->constrained()->cascadeOnDelete();
+            $table->unsignedBigInteger('pizza_id');      // verwijst naar je pizzas-tabel
+            $table->unsignedBigInteger('bestelling_id'); // verwijst naar bestellingen-tabel
             $table->timestamps();
+
+
+            $table->foreign('pizza_id')
+                  ->references('id')
+                  ->on('pizzas')
+                  ->onDelete('cascade');
+
+            $table->foreign('bestelling_id')
+                  ->references('id')
+                  ->on('bestellingen')
+                  ->onDelete('cascade');
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
-    public function down(): void
+    public function down()
     {
         Schema::dropIfExists('bestelregels');
     }
