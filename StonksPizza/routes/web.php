@@ -48,5 +48,10 @@ Route::get('/about', function () {
     return view('About.Index');
 })->name('about.index');
 
+Route::get('/contact', function () {
+    return view('contact');
+})->name('contact.index');
+
+
 
 require __DIR__.'/auth.php';
