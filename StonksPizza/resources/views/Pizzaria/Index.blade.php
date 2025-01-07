@@ -1,14 +1,25 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pizzeria</title>
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
+
 <body class="bg-gray-100 text-gray-800 font-sans">
     <header class="bg-yellow-500 text-white shadow-lg py-6">
-        <h1 class="text-4xl text-center font-bold tracking-wide">Pizzeria</h1>
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-4xl font-bold tracking-wide">Pizzeria</h1>
+            <nav class="space-x-6">
+                <a href="{{ url('/') }}" class="text-white hover:text-yellow-300 transition duration-300">Home</a>
+                <!-- Change the link to use the route function for the menu page -->
+                <a href="{{ route('menu.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Menu</a>
+                <a href="#about" class="text-white hover:text-yellow-300 transition duration-300">About</a>
+                <a href="#contact" class="text-white hover:text-yellow-300 transition duration-300">Contact</a>
+            </nav>
+        </div>
     </header>
 
     <main class="container mx-auto px-4 py-8">
@@ -21,17 +32,17 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
             <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
-                <img src="/resources/Images/margherita.jpg" alt="Classic Margherita" class="w-full rounded-md mb-4">
+                <img src="/Images/margherita.jpg" alt="Classic Margherita" class="w-full rounded-md mb-4">
                 <h3 class="text-xl font-semibold mb-2">Classic Margherita</h3>
                 <p class="text-gray-600">A timeless favorite topped with fresh tomatoes, mozzarella, and basil.</p>
             </div>
             <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
-                <img src="/resources/Images/pepperoni.jpg" alt="Pepperoni Feast" class="w-full rounded-md mb-4">
+                <img src="/Images/pepperoni.webp" alt="Pepperoni Feast" class="w-full rounded-md mb-4">
                 <h3 class="text-xl font-semibold mb-2">Pepperoni Feast</h3>
                 <p class="text-gray-600">Loaded with spicy pepperoni and gooey mozzarella cheese.</p>
             </div>
             <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
-                <img src="/resources/Images/veggie.jpg" alt="Veggie Delight" class="w-full rounded-md mb-4">
+                <img src="/Images/veggie.webp" alt="Veggie Delight" class="w-full rounded-md mb-4">
                 <h3 class="text-xl font-semibold mb-2">Veggie Delight</h3>
                 <p class="text-gray-600">A colorful mix of fresh veggies on a bed of savory tomato sauce.</p>
             </div>
@@ -42,5 +53,5 @@
         <p>&copy; 2024 Pizzeria. All Rights Reserved. <a href="#" class="text-yellow-500 hover:underline">Privacy Policy</a></p>
     </footer>
 </body>
+
 </html>
-willem b
