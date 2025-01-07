@@ -2,18 +2,22 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PizzaController;
+use App\Http\Controllers\KlantController;
+use App\Http\Controllers\BestellingController;
+use App\Http\Controllers\BestelregelController;
+use App\Http\Controllers\IngredientController;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');  // Shows all pizzas
+Route::get('/pizza/create', [PizzaController::class, 'create'])->name('pizza.create');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::resource('pizza', PizzaController::class)->except(['index']);
 
-Route::get('/pizzaria', function () {
-    return view('Pizzaria.Index');
-});
+Route::resource('klanten', KlantController::class);
+Route::resource('bestellingen', BestellingController::class);
+Route::resource('bestelregels', BestelregelController::class);
+Route::resource('ingredients', IngredientController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -21,7 +25,23 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+
+
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/', function () {
+    return view('home');
+});
+
+Route::get('/', function () {
+    return view('pizzaria.index');  
+});
+
+
 require __DIR__.'/auth.php';
+<<<<<<< HEAD
 
 use App\Http\Controllers\KlantController;
 use App\Http\Controllers\BestellingController;
@@ -55,3 +75,5 @@ Route::get('/order', function () {
     return view('order');
 })->name('order');
 
+=======
+>>>>>>> ee00d6486cbe3cbb1a436ea103b6c97f4bd3f7e8
