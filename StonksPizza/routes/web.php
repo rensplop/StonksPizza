@@ -44,4 +44,9 @@ Route::get('/', function () {
     return view('pizzaria.index');  
 });
 
+Route::get('/about', function () {
+    return view('About.Index');
+})->name('about.index');
+
+
 require __DIR__.'/auth.php';
