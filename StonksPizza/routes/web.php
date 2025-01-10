@@ -60,6 +60,14 @@ Route::get('/login', function () {
     return view('auth.login'); 
 })->name('login');
 
+Route::get('/logout', function () {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect('/mylogin');
+})->name('logout');
+
+
 
 
 require __DIR__.'/auth.php';
