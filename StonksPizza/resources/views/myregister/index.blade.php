@@ -14,7 +14,6 @@
             <nav class="space-x-6">
                 <a href="{{ url('/') }}" class="text-white hover:text-yellow-300 transition duration-300">Home</a>
                 <a href="{{ route('menu.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Menu</a>
-                <a href="{{ route('login.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Inloggen</a>
             </nav>
         </div>
     </header>
@@ -56,19 +55,6 @@
                         class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-300"
                         required
                     >
-                </div>
-
-                <div>
-                    <label for="role" class="block mb-2 font-medium text-gray-700">Account Type</label>
-                    <select
-                        id="role"
-                        name="role"
-                        class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-yellow-300"
-                        required
-                    >
-                        <option value="user">Gebruiker</option>
-                        <option value="admin">Admin</option>
-                    </select>
                 </div>
 
                 <button
