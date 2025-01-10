@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Pizza;
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
+use App\Models\Size;
+
 
 class PizzaController extends Controller
 {
@@ -13,38 +15,38 @@ class PizzaController extends Controller
         $pizzas = Pizza::with('ingredienten')->get();
         $ingredients = Ingredient::all();
 
-        // Points to resources/views/Menu/Index.blade.php
         return view('Menu.index', compact('pizzas', 'ingredients'));
     }
 
     public function create()
     {
         $ingredients = Ingredient::all();
-
-        // Points to resources/views/Menu/Create.blade.php
-        return view('Menu.create', compact('ingredients'));
+        $sizes = Size::all(); 
+    
+        return view('Menu.create', compact('ingredients', 'sizes'));
     }
+    
+    
 
     public function store(Request $request)
     {
         $request->validate([
             'naam'         => 'required|string|max:255',
-            'size'         => 'required|in:small,medium,large', // of hoe je het wilt valideren
+            'size_id'      => 'required|exists:sizes,id', 
             'ingredienten' => 'required|array',
         ]);
     
-        // Nieuwe pizza aanmaken met naam en grootte
         $pizza = Pizza::create([
-            'naam' => $request->naam,
-            'size' => $request->size,
+            'naam'    => $request->naam,
+            'size_id' => $request->size_id, 
         ]);
     
-        // Koppel de ingrediënten
         $pizza->ingredienten()->attach($request->ingredienten);
     
-        // Redirect
-        return redirect()->route('menu.index')->with('success', 'Pizza created!');
+        return redirect()->route('menu.index')
+                         ->with('success', 'Pizza aangemaakt!');
     }
+    
     
     public function edit(Pizza $pizza)
     {
@@ -76,7 +78,6 @@ class PizzaController extends Controller
         $pizza->ingredienten()->detach();
         $pizza->delete();
 
-        // Redirect back to /menu
         return redirect()->route('menu.index')->with('success', 'Pizza deleted!');
     }
 }
