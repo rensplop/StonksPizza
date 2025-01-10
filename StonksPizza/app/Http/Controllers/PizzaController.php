@@ -28,38 +28,48 @@ class PizzaController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'naam' => 'required|string|max:255',
+            'naam'         => 'required|string|max:255',
+            'size'         => 'required|in:small,medium,large', // of hoe je het wilt valideren
             'ingredienten' => 'required|array',
         ]);
-
-        $pizza = Pizza::create(['naam' => $request->naam]);
+    
+        // Nieuwe pizza aanmaken met naam en grootte
+        $pizza = Pizza::create([
+            'naam' => $request->naam,
+            'size' => $request->size,
+        ]);
+    
+        // Koppel de ingrediënten
         $pizza->ingredienten()->attach($request->ingredienten);
-
-        // Redirect back to /menu
+    
+        // Redirect
         return redirect()->route('menu.index')->with('success', 'Pizza created!');
     }
-
+    
     public function edit(Pizza $pizza)
     {
         $ingredients = Ingredient::all();
-
-        // Points to resources/views/Menu/Edit.blade.php
         return view('Menu.edit', compact('pizza', 'ingredients'));
     }
-
+    
     public function update(Request $request, Pizza $pizza)
     {
         $request->validate([
-            'naam' => 'required|string|max:255',
+            'naam'         => 'required|string|max:255',
+            'size'         => 'required|in:small,medium,large',
             'ingredienten' => 'required|array',
         ]);
-
-        $pizza->update(['naam' => $request->naam]);
+    
+        $pizza->update([
+            'naam' => $request->naam,
+            'size' => $request->size,
+        ]);
+    
         $pizza->ingredienten()->sync($request->ingredienten);
-
-        // Redirect back to /menu
+    
         return redirect()->route('menu.index')->with('success', 'Pizza updated!');
     }
+    
 
     public function destroy(Pizza $pizza)
     {
