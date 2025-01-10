@@ -56,39 +56,3 @@ Route::get('/contact', function () {
 
 
 require __DIR__.'/auth.php';
-<<<<<<< HEAD
-
-use App\Http\Controllers\KlantController;
-use App\Http\Controllers\BestellingController;
-use App\Http\Controllers\BestelregelController;
-use App\Http\Controllers\PizzaController;
-use App\Http\Controllers\IngredientController;
-
-Route::resource('klanten', KlantController::class);
-Route::resource('bestellingen', BestellingController::class);
-Route::resource('bestelregels', BestelregelController::class);
-Route::resource('pizzas', PizzaController::class);
-Route::resource('ingredients', IngredientController::class);
-
-Route::get('/', function () {
-    return view('Index');
-})->name('home');
-
-Route::get('/about', function () {
-    return view('about');
-})->name('about');
-
-Route::get('/menu', function () {
-    return view('menu');
-})->name('menu');
-
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
-
-Route::get('/order', function () {
-    return view('order');
-})->name('order');
-
-=======
->>>>>>> ee00d6486cbe3cbb1a436ea103b6c97f4bd3f7e8

@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<<<<<<< HEAD
 <html lang="nl">
-=======
 <html lang="en">
 
 <head>
@@ -30,7 +28,6 @@
                 <a href="{{ route('contact.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Contact</a>
             </nav>
         </div>
->>>>>>> ee00d6486cbe3cbb1a436ea103b6c97f4bd3f7e8
     </header>
 
     <main class="container mx-auto px-4 py-8">
@@ -41,8 +38,6 @@
             <button class="bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-red-600 transition duration-300 ease-in-out">Order Now</button>
         </div>
 
-<<<<<<< HEAD
-=======
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
             <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
                 <img src="/Images/margherita.jpg" alt="Classic Margherita" class="w-full rounded-md mb-4">
@@ -60,7 +55,6 @@
                 <p class="text-gray-600">A colorful mix of fresh veggies on a bed of savory tomato sauce.</p>
             </div>
         </div>
->>>>>>> ee00d6486cbe3cbb1a436ea103b6c97f4bd3f7e8
     </main>
 
     <footer class="bg-gray-800 text-gray-400 text-center py-4 mt-8">
