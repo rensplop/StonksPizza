@@ -40,11 +40,12 @@ Route::get('/contact', function () {
     return view('Contact.Index');
 })->name('contact.index');
 
-Route::get('/login', function () {
+Route::get('/mylogin', function () {
     if (Auth::check()) {
         return redirect('/dashboard');
     }
-    return view('login.index');
-})->name('login.index');
+    return view('mylogin.index');
+})->name('mylogin.index');
+
 
 require __DIR__.'/auth.php';
