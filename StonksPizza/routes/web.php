@@ -10,6 +10,12 @@ use App\Http\Controllers\IngredientController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
+use App\Http\Controllers\MyRegisterController;
+
+Route::get('/myregister', [MyRegisterController::class, 'create'])->name('myregister.create');
+Route::post('/myregister', [MyRegisterController::class, 'store'])->name('myregister.store');
+
+
 Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');
 Route::get('/pizza/create', [PizzaController::class, 'create'])->name('pizza.create');
 Route::resource('pizza', PizzaController::class)->except(['index']);
