@@ -10,10 +10,13 @@ use App\Http\Controllers\IngredientController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-use App\Http\Controllers\MyRegisterController;
+use App\Http\Controllers\AuthController;
 
-Route::get('/myregister', [MyRegisterController::class, 'create'])->name('myregister.create');
-Route::post('/myregister', [MyRegisterController::class, 'store'])->name('myregister.store');
+Route::get('/mylogin', [AuthController::class, 'login'])->name('mylogin');
+Route::post('/mylogin', [AuthController::class, 'doLogin'])->name('mylogin.post');
+Route::get('/myregister', [AuthController::class, 'register'])->name('myregister.create');
+Route::post('/myregister', [AuthController::class, 'store'])->name('myregister.store');
+
 
 
 Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');
