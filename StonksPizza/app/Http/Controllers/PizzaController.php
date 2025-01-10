@@ -15,6 +15,7 @@ class PizzaController extends Controller
 
         // Points to resources/views/Menu/Index.blade.php
         return view('Menu.index', compact('pizzas', 'ingredients'));
+        return view('Orders.index', compact('pizzas'));
     }
 
     public function create()

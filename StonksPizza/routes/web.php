@@ -43,8 +43,12 @@ Route::get('/', function () {
 });
 
 Route::get('/', function () {
-    return view('pizzaria.index');  
+    return view('Pizzaria.index');
 });
+
+Route::get('/menu', function () {
+    return view('Orders.index');  
+})->name('orders.index');
 
 Route::get('/about', function () {
     return view('About.Index');
