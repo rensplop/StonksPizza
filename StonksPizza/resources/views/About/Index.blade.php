@@ -13,7 +13,8 @@
             <nav class="space-x-6">
                 <a href="{{ url('/') }}" class="text-white hover:text-yellow-300 transition duration-300">Home</a>
                 <a href="{{ route('menu.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Menu</a>
-                <a href="{{ url('/#contact') }}" class="text-white hover:text-yellow-300 transition duration-300">Contact</a>
+                <a href="{{ route('about.index') }}" class="text-white hover:text-yellow-300 transition duration-300">About</a>
+                <a href="{{ route('contact.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Contact</a>
             </nav>
         </div>
     </header>
