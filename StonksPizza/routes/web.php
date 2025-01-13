@@ -67,6 +67,10 @@ Route::get('/logout', function () {
     return redirect('/mylogin');
 })->name('logout');
 
+Route::get('/voertuigen', function () {
+    return view('voertuigen.Index');
+})->name('voertuigen.index');
+
 
 
 

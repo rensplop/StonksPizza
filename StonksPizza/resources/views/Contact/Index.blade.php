@@ -14,6 +14,8 @@
                 <a href="{{ route('menu.index') }}" class="hover:text-yellow-300 transition duration-300">Menu</a>
                 <a href="{{ route('about.index') }}" class="hover:text-yellow-300 transition duration-300">Over ons</a>
                 <a href="{{ url('/contact') }}" class="hover:text-yellow-300 transition duration-300">Contact</a>
+                <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300 transition duration-300">voertuigen</a>
+                <a href="{{ route('mylogin.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Inloggen</a>
             </nav>
         </div>
     </header>
