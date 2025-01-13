@@ -1,19 +1,31 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PizzaController;
+use App\Http\Controllers\KlantController;
+use App\Http\Controllers\BestellingController;
+use App\Http\Controllers\BestelregelController;
+use App\Http\Controllers\IngredientController;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+use App\Http\Controllers\AuthController;
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/mylogin', [AuthController::class, 'login'])->name('mylogin');
+Route::post('/mylogin', [AuthController::class, 'doLogin'])->name('mylogin.post');
+Route::get('/myregister', [AuthController::class, 'register'])->name('myregister.create');
+Route::post('/myregister', [AuthController::class, 'store'])->name('myregister.store');
 
-Route::get('/pizzaria', function () {
-    return view('Pizzaria.Index');
-});
+
+
+Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');
+Route::get('/pizza/create', [PizzaController::class, 'create'])->name('pizza.create');
+Route::resource('pizza', PizzaController::class)->except(['index']);
+Route::resource('klanten', KlantController::class);
+Route::resource('bestellingen', BestellingController::class);
+Route::resource('bestelregels', BestelregelController::class);
+Route::resource('ingredients', IngredientController::class);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -21,16 +33,33 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
+
+Route::get('/', function () {
+    return view('pizzaria.index');
+})->name('home');
+
+Route::get('/about', function () {
+    return view('About.Index');
+})->name('about.index');
+
+Route::get('/contact', function () {
+    return view('Contact.Index');
+})->name('contact.index');
+
+Route::get('/mylogin', function () {
+    if (Auth::check()) {
+        return redirect('/dashboard');
+    }
+    return view('mylogin.index');
+})->name('mylogin.index');
+
+Route::get('/login', function () {
+    return view('auth.login'); 
+})->name('login');
+
+
+
 require __DIR__.'/auth.php';
-
-use App\Http\Controllers\KlantController;
-use App\Http\Controllers\BestellingController;
-use App\Http\Controllers\BestelregelController;
-use App\Http\Controllers\PizzaController;
-use App\Http\Controllers\IngredientController;
-
-Route::resource('klanten', KlantController::class);
-Route::resource('bestellingen', BestellingController::class);
-Route::resource('bestelregels', BestelregelController::class);
-Route::resource('pizzas', PizzaController::class);
-Route::resource('ingredients', IngredientController::class);
