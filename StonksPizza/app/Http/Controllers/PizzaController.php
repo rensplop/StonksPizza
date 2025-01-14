@@ -10,7 +10,6 @@ class PizzaController extends Controller
 {
     public function index()
     {
-        // size is een string, dus we laden alleen de pivot-relatie voor ingredienten
         $pizzas = Pizza::with('ingredienten')->get();
         return view('Menu.index', compact('pizzas'));
     }
