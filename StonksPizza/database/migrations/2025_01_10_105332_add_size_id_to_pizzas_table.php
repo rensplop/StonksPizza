@@ -10,13 +10,13 @@ return new class extends Migration
     {
         Schema::table('pizzas', function (Blueprint $table) {
             $table->unsignedBigInteger('size_id')->nullable()->after('naam');
-
             $table->foreign('size_id')
                   ->references('id')
                   ->on('sizes')
-                  ->onDelete('set null'); 
+                  ->onDelete('set null');
         });
     }
+    
 
     public function down()
     {

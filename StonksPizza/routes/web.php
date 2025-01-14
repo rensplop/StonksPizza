@@ -12,6 +12,14 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
 
+
+
+
+Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');
+Route::resource('pizza', PizzaController::class)->except(['index']);
+
+
+
 Route::get('/mylogin', [AuthController::class, 'login'])->name('mylogin');
 Route::post('/mylogin', [AuthController::class, 'doLogin'])->name('mylogin.post');
 Route::get('/myregister', [AuthController::class, 'register'])->name('myregister.create');
@@ -70,7 +78,6 @@ Route::get('/logout', function () {
 Route::get('/voertuigen', function () {
     return view('voertuigen.Index');
 })->name('voertuigen.index');
-
 
 
 

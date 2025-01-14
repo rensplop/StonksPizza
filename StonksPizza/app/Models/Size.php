@@ -9,22 +9,10 @@ class Size extends Model
 {
     use HasFactory;
 
-    protected $table = 'sizes';
-
-    protected $fillable = [
-        'naam',
-        'size_id',
-        'slug',
-    ];
+    protected $fillable = ['naam', 'price']; // evt. ook 'slug'
 
     public function pizzas()
     {
         return $this->hasMany(Pizza::class, 'size_id');
     }
-
-    public function size()
-{
-    return $this->belongsTo(Size::class, 'size_id');
-}
-
 }

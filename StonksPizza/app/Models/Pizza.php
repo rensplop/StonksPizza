@@ -2,39 +2,38 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Pizza extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'naam',
-        'size',  // <-- zodat we 'size' kunnen invullen
+        'size_id',
     ];
 
     public function ingredienten()
     {
-        return $this->belongsToMany(Ingredient::class);
+        return $this->belongsToMany(Ingredient::class); 
     }
 
-    /**
-     * Berekent de totale prijs van de pizza als som van de ingrediënten + optionele groottetoeslag.
-     */
-    public function getTotalPriceAttribute()
+    public function size()
     {
-        // Som van ingrediënten
+        return $this->belongsTo(Size::class, 'size_id');
+    }
+
+    public function getTotaalPrijsAttribute()
+    {
+        // Som van alle geselecteerde ingrediënten
         $ingredientTotal = $this->ingredienten->sum('price');
 
-        // Eventueel toeslag afhankelijk van grootte
-        // (pas aan naar wens; hieronder voorbeeld)
-        $sizeSurcharges = [
-            'small'  => 0,
-            'medium' => 2,
-            'large'  => 4,
-        ];
-        
-        $sizeSurcharge = $sizeSurcharges[$this->size] ?? 0;
+        // Prijs van de geselecteerde grootte (als die bestaat)
+        $sizePrice = $this->size && $this->size->price
+            ? $this->size->price
+            : 0;
 
-        return $ingredientTotal + $sizeSurcharge;
+        return $ingredientTotal + $sizePrice;
     }
 }
