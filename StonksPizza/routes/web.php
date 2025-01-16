@@ -12,20 +12,17 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\VoertuigController;
 
-Route::resource('voertuigen', VoertuigController::class);
-
+Route::resource('voertuigen', VoertuigController::class)->parameters([
+    'voertuigen' => 'voertuig'
+]);
 
 Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');
 Route::resource('pizza', PizzaController::class)->except(['index']);
-
-
 
 Route::get('/mylogin', [AuthController::class, 'login'])->name('mylogin');
 Route::post('/mylogin', [AuthController::class, 'doLogin'])->name('mylogin.post');
 Route::get('/myregister', [AuthController::class, 'register'])->name('myregister.create');
 Route::post('/myregister', [AuthController::class, 'store'])->name('myregister.store');
-
-
 
 Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');
 Route::get('/pizza/create', [PizzaController::class, 'create'])->name('pizza.create');
@@ -74,9 +71,5 @@ Route::get('/logout', function () {
     request()->session()->regenerateToken();
     return redirect('/mylogin');
 })->name('logout');
-
-
-
-
 
 require __DIR__.'/auth.php';
