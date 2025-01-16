@@ -73,6 +73,11 @@
                     </a>
                     @endif
 
+                <div class="text-center">
+                    <p class="text-gray-600 mb-4">Heb je nog geen account? <a href="{{ route('register') }}" class="text-sm text-yellow-500 hover:underline">Registreer nu</a></p>
+                    
+                </div>
+
                     <button type="submit" class="bg-yellow-500 text-white px-6 py-3 rounded-md shadow-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-yellow-500">
                         Inloggen
                     </button>
@@ -80,12 +85,7 @@
             </form>
 
             <!-- Register Button -->
-            <div class="text-center">
-                <p class="text-gray-600 mb-4">Heb je nog geen account?</p>
-                <a href="{{ route('register') }}" class="bg-yellow-500 text-white px-6 py-3 rounded-md shadow-md hover:bg-yellow-600 transition duration-300">
-                    Registreer nu
-                </a>
-            </div>
+
         </div>
     </main>
 

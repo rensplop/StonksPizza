@@ -10,10 +10,15 @@
         <div class="container mx-auto flex justify-between items-center px-4">
             <h1 class="text-3xl font-bold">Pizzeria</h1>
             <nav class="space-x-6">
-                <a href="{{ url('/') }}" class="hover:text-yellow-300 transition duration-300">Home</a>
-                <a href="{{ route('menu.index') }}" class="hover:text-yellow-300 transition duration-300">Menu</a>
-                <a href="{{ route('about.index') }}" class="hover:text-yellow-300 transition duration-300">Over ons</a>
-                <a href="{{ url('/contact') }}" class="hover:text-yellow-300 transition duration-300">Contact</a>
+                <a href="{{ url('/') }}" class="text-white hover:text-yellow-300 transition duration-300">Home</a>
+                <a href="{{ route('menu.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Menu</a>
+                <a href="{{ route('about.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Over ons</a>
+                <a href="{{ route('contact.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Contact</a>
+                @auth
+                    <a href="{{ route('dashboard') }}" class="text-white hover:text-yellow-300 transition duration-300">Account</a>
+                @else
+                    <a href="{{ route('login') }}" class="text-white hover:text-yellow-300 transition duration-300">Inloggen</a>
+                @endauth
             </nav>
         </div>
     </header>
