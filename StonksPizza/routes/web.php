@@ -45,6 +45,10 @@ Route::get('/contact', function () {
     return view('Contact.Index');
 })->name('contact.index');
 
+Route::get('/voertuigen', function () {
+    return view('voertuigen.Index');
+})->name('voertuigen.index');
+
 Route::get('/mylogin', function () {
     if (Auth::check()) {
         return redirect('/dashboard');
