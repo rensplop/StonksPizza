@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PizzaController;
 use App\Http\Controllers\KlantController;
 use App\Http\Controllers\BestellingController;
@@ -11,8 +10,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\VoertuigController;
 
-
+Route::resource('voertuigen', VoertuigController::class);
 
 
 Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');
@@ -75,9 +75,7 @@ Route::get('/logout', function () {
     return redirect('/mylogin');
 })->name('logout');
 
-Route::get('/voertuigen', function () {
-    return view('voertuigen.Index');
-})->name('voertuigen.index');
+
 
 
 
