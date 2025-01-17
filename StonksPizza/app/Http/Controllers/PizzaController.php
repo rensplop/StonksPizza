@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Pizza;
 use App\Models\Ingredient;
 use Illuminate\Http\Request;
+use App\Models\Size;
+
 
 class PizzaController extends Controller
 {
@@ -13,60 +15,73 @@ class PizzaController extends Controller
         $pizzas = Pizza::with('ingredienten')->get();
         $ingredients = Ingredient::all();
 
-        // Points to resources/views/Menu/Index.blade.php
         return view('Menu.index', compact('pizzas', 'ingredients'));
     }
 
     public function create()
     {
         $ingredients = Ingredient::all();
-
-        // Points to resources/views/Menu/Create.blade.php
-        return view('Menu.create', compact('ingredients'));
+        $sizes = Size::all(); 
+    
+        return view('Menu.create', compact('ingredients', 'sizes'));
     }
+    
+    
 
     public function store(Request $request)
     {
         $request->validate([
-            'naam' => 'required|string|max:255',
+            'naam'         => 'required|string|max:255',
+            'size_id'      => 'required|exists:sizes,id', 
             'ingredienten' => 'required|array',
         ]);
-
-        $pizza = Pizza::create(['naam' => $request->naam]);
+    
+        $pizza = Pizza::create([
+            'naam'    => $request->naam,
+            'size_id' => $request->size_id, 
+        ]);
+    
         $pizza->ingredienten()->attach($request->ingredienten);
-
-        // Redirect back to /menu
-        return redirect()->route('menu.index')->with('success', 'Pizza created!');
+    
+        return redirect()->route('menu.index')
+                         ->with('success', 'Pizza aangemaakt!');
     }
-
+    
+    
     public function edit(Pizza $pizza)
     {
         $ingredients = Ingredient::all();
-
-        // Points to resources/views/Menu/Edit.blade.php
-        return view('Menu.edit', compact('pizza', 'ingredients'));
+        $sizes = Size::all(); 
+        
+        return view('Menu.edit', compact('pizza', 'ingredients', 'sizes'));
     }
-
+    
+    
     public function update(Request $request, Pizza $pizza)
     {
         $request->validate([
-            'naam' => 'required|string|max:255',
+            'naam'         => 'required|string|max:255',
+            'size_id'      => 'required|exists:sizes,id',
             'ingredienten' => 'required|array',
         ]);
-
-        $pizza->update(['naam' => $request->naam]);
+    
+        $pizza->update([
+            'naam'    => $request->naam,
+            'size_id' => $request->size_id,
+        ]);
+    
         $pizza->ingredienten()->sync($request->ingredienten);
-
-        // Redirect back to /menu
+    
         return redirect()->route('menu.index')->with('success', 'Pizza updated!');
     }
+    
+    
 
     public function destroy(Pizza $pizza)
     {
         $pizza->ingredienten()->detach();
         $pizza->delete();
 
-        // Redirect back to /menu
         return redirect()->route('menu.index')->with('success', 'Pizza deleted!');
     }
 }

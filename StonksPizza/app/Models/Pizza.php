@@ -3,19 +3,28 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Pizza extends Model
 {
-    protected $fillable = ['naam'];
+    protected $fillable = [
+        'naam',
+        'size_id'
+    ];
 
-    public function ingredienten(): BelongsToMany
+    public function ingredienten()
     {
-        return $this->belongsToMany(Ingredient::class, 'ingredient_pizza');  // Using 'ingredient_pizza' pivot table
+        return $this->belongsToMany(Ingredient::class);
     }
 
-    public function prijs(): float
+    public function size()
     {
-        return $this->ingredienten->sum('prijs');
+        return $this->belongsTo(Size::class);
+    }
+
+    public function getTotaalPrijsAttribute()
+    {
+        $sumIngredients = $this->ingredienten->sum('price');
+        $base = $this->size ? $this->size->price : 0;
+        return $base + $sumIngredients;
     }
 }
