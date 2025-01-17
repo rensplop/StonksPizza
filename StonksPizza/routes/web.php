@@ -18,7 +18,7 @@ Route::get('/AdminMenu', [PizzaController::class, 'index'])->name('menu.index');
 Route::get('/pizza/create', [PizzaController::class, 'create'])->name('pizza.create');
 
 // Resource routes for pizza, except the index
-Route::resource('pizza', PizzaController::class)->except(['index']);
+Route::resource('pizza', PizzaController::class);
 
 // Other resource routes
 Route::resource('klanten', KlantController::class);
