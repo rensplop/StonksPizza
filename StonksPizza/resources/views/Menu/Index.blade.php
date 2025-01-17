@@ -50,7 +50,6 @@
                 <tbody>
                     @foreach ($pizzas as $pizza)
                         @php
-                            // Tel de prijs van alle ingrediënten bij elkaar op
                             $totalePrijs = $pizza->ingredienten->sum('prijs');
                         @endphp
                         <tr class="hover:bg-gray-50">
