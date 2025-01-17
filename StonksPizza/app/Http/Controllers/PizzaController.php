@@ -51,26 +51,30 @@ class PizzaController extends Controller
     public function edit(Pizza $pizza)
     {
         $ingredients = Ingredient::all();
-        return view('Menu.edit', compact('pizza', 'ingredients'));
+        $sizes = Size::all(); 
+        
+        return view('Menu.edit', compact('pizza', 'ingredients', 'sizes'));
     }
+    
     
     public function update(Request $request, Pizza $pizza)
     {
         $request->validate([
             'naam'         => 'required|string|max:255',
-            'size'         => 'required|in:small,medium,large',
+            'size_id'      => 'required|exists:sizes,id',
             'ingredienten' => 'required|array',
         ]);
     
         $pizza->update([
-            'naam' => $request->naam,
-            'size' => $request->size,
+            'naam'    => $request->naam,
+            'size_id' => $request->size_id,
         ]);
     
         $pizza->ingredienten()->sync($request->ingredienten);
     
         return redirect()->route('menu.index')->with('success', 'Pizza updated!');
     }
+    
     
 
     public function destroy(Pizza $pizza)

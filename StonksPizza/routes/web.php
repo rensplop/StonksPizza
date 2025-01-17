@@ -1,7 +1,6 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PizzaController;
 use App\Http\Controllers\KlantController;
 use App\Http\Controllers\BestellingController;
@@ -11,8 +10,14 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\VoertuigController;
 
+Route::resource('voertuigen', VoertuigController::class)->parameters([
+    'voertuigen' => 'voertuig'
+]);
 
+Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');
+Route::resource('pizza', PizzaController::class)->except(['index']);
 
 
 Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');
@@ -60,6 +65,11 @@ Route::get('/login', function () {
     return view('auth.login'); 
 })->name('login');
 
-
+Route::get('/logout', function () {
+    Auth::logout();
+    request()->session()->invalidate();
+    request()->session()->regenerateToken();
+    return redirect('/mylogin');
+})->name('logout');
 
 require __DIR__.'/auth.php';

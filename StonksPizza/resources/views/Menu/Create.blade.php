@@ -63,7 +63,7 @@
 
 
             <div class="mb-4">
-                <label class="block mb-1 font-semibold">Selecteer ingrediënten</label>
+                <label class="block mb-1 font-semibold">Selecteer ingrediÃ«nten</label>
                 @foreach($ingredients as $ingredient)
                     <div class="flex items-center mb-1">
                         <input type="checkbox" name="ingredienten[]" value="{{ $ingredient->id }}" class="mr-2">
