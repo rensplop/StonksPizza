@@ -3,13 +3,12 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Pizza extends Model
 {
     protected $fillable = [
         'naam',
-        'size',  // <-- zodat we 'size' kunnen invullen
+        'size_id'
     ];
 
     public function ingredienten()
@@ -17,24 +16,15 @@ class Pizza extends Model
         return $this->belongsToMany(Ingredient::class);
     }
 
-    /**
-     * Berekent de totale prijs van de pizza als som van de ingrediënten + optionele groottetoeslag.
-     */
-    public function getTotalPriceAttribute()
+    public function size()
     {
-        // Som van ingrediënten
-        $ingredientTotal = $this->ingredienten->sum('price');
+        return $this->belongsTo(Size::class);
+    }
 
-        // Eventueel toeslag afhankelijk van grootte
-        // (pas aan naar wens; hieronder voorbeeld)
-        $sizeSurcharges = [
-            'small'  => 0,
-            'medium' => 2,
-            'large'  => 4,
-        ];
-        
-        $sizeSurcharge = $sizeSurcharges[$this->size] ?? 0;
-
-        return $ingredientTotal + $sizeSurcharge;
+    public function getTotaalPrijsAttribute()
+    {
+        $sumIngredients = $this->ingredienten->sum('price');
+        $base = $this->size ? $this->size->price : 0;
+        return $base + $sumIngredients;
     }
 }
