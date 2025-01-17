@@ -12,10 +12,6 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
 
-Route::get('/mylogin', [AuthController::class, 'login'])->name('mylogin');
-Route::post('/mylogin', [AuthController::class, 'doLogin'])->name('mylogin.post');
-Route::get('/myregister', [AuthController::class, 'register'])->name('myregister.create');
-Route::post('/myregister', [AuthController::class, 'store'])->name('myregister.store');
 
 
 
@@ -48,6 +44,10 @@ Route::get('/about', function () {
 Route::get('/contact', function () {
     return view('Contact.Index');
 })->name('contact.index');
+
+Route::get('/voertuigen', function () {
+    return view('voertuigen.Index');
+})->name('voertuigen.index');
 
 Route::get('/mylogin', function () {
     if (Auth::check()) {

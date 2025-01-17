@@ -15,19 +15,24 @@
                 <a href="{{ route('menu.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Menu</a>
                 <a href="{{ route('about.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Over ons</a>
                 <a href="{{ route('contact.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Contact</a>
+                @auth
+                @if(auth()->user()->hasRole('admin'))
+                <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Voertuigen</a>
+                @endif
+                @endauth
+                @auth
+                    <a href="{{ route('dashboard') }}" class="text-white hover:text-yellow-300 transition duration-300">Account</a>
+                @else
+                    <a href="{{ route('login') }}" class="text-white hover:text-yellow-300 transition duration-300">Inloggen</a>
+                @endauth
             </nav>
         </div>
     </header>
 
     <main class="container mx-auto px-4 py-8 flex-grow">
         <h1 class="text-4xl font-semibold text-center mb-6">Ons Pizza Menu</h1>
-
-        @if (session('success'))
-            <div class="bg-green-500 text-white p-4 mb-4 rounded-md">
-                {{ session('success') }}
-            </div>
-        @endif
-
+        @auth
+        @if(auth()->user()->hasRole('admin'))
         <a href="{{ route('pizza.create') }}" class="bg-blue-500 text-white px-6 py-3 rounded-lg mb-6 inline-block shadow-md hover:bg-blue-600 transition duration-300">
             Nieuwe Pizza Toevoegen
         </a>
@@ -45,7 +50,6 @@
                 <tbody>
                     @foreach ($pizzas as $pizza)
                         @php
-                            // Tel de prijs van alle ingrediënten bij elkaar op
                             $totalePrijs = $pizza->ingredienten->sum('prijs');
                         @endphp
                         <tr class="hover:bg-gray-50">
@@ -75,6 +79,35 @@
                 </tbody>
             </table>
         </div>
+
+        @elseif(auth()->user()->hasRole('user'))
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        @foreach ($pizzas as $pizza)
+            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                <img src="{{ $pizza->image_url }}" alt="{{ $pizza->naam }}" class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h2 class="text-xl font-bold mb-2">{{ $pizza->naam }}</h2>
+                    <p class="text-gray-600 mb-4">
+                        Ingrediënten: 
+                        @foreach ($pizza->ingredienten as $ingredient)
+                            {{ $ingredient->naam }}@if(!$loop->last), @endif
+                        @endforeach
+                    </p>
+                    <p class="text-lg font-semibold text-gray-800">
+                        &euro;{{ number_format($pizza->ingredienten->sum('prijs'), 2, ',', '.') }}
+                    </p>
+                </div>
+            </div>
+        @endforeach
+        </div>
+        @endif
+        @endauth
+
+        @if (session('success'))
+            <div class="bg-green-500 text-white p-4 mb-4 rounded-md">
+                {{ session('success') }}
+            </div>
+        @endif
     </main>
 
     <footer class="bg-gray-800 text-gray-400 text-center py-4">

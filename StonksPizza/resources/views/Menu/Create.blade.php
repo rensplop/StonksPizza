@@ -10,6 +10,22 @@
     <header class="bg-yellow-500 text-white py-4 shadow">
         <div class="container mx-auto px-4">
             <h1 class="text-3xl font-bold">Pizzeria</h1>
+            <nav class="space-x-6">
+                <a href="{{ url('/') }}" class="text-white hover:text-yellow-300 transition duration-300">Home</a>
+                <a href="{{ route('menu.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Menu</a>
+                <a href="{{ route('about.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Over ons</a>
+                <a href="{{ route('contact.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Contact</a>
+                @auth
+                @if(auth()->user()->hasRole('admin'))
+                <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Voertuigen</a>
+                @endif
+                @endauth
+                @auth
+                    <a href="{{ route('dashboard') }}" class="text-white hover:text-yellow-300 transition duration-300">Account</a>
+                @else
+                    <a href="{{ route('login') }}" class="text-white hover:text-yellow-300 transition duration-300">Inloggen</a>
+                @endauth
+            </nav>
         </div>
     </header>
 
