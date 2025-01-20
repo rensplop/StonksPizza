@@ -82,30 +82,42 @@
                     </table>
                 </div>
 
-            @elseif(auth()->user()->hasRole('user'))
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                    @foreach ($pizzas as $pizza)
-                        <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-                        <img 
-    src="{{ $pizza->image ? asset('storage/' . $pizza->image) : 'fallback-afbeelding.png' }}" 
-    alt="{{ $pizza->naam }}" 
-    class="w-full h-48 object-cover" 
-/>
-                            <div class="p-4">
-                                <h2 class="text-xl font-bold mb-2">{{ $pizza->naam }}</h2>
-                                <p class="text-gray-600 mb-4">
-                                    Ingrediënten:
-                                    @foreach ($pizza->ingredienten as $ingredient)
-                                        {{ $ingredient->naam }}@if(!$loop->last), @endif
-                                    @endforeach
-                                </p>
-                                <p class="text-lg font-semibold text-gray-800">
-                                    &euro;{{ number_format($pizza->ingredienten->sum('prijs'), 2, ',', '.') }}
-                                </p>
-                            </div>
-                        </div>
-                    @endforeach
+                @elseif(auth()->user()->hasRole('user'))
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+        @foreach ($pizzas as $pizza)
+            <div class="relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                <img 
+                    src="{{ $pizza->image ? asset('storage/' . $pizza->image) : 'fallback-afbeelding.png' }}" 
+                    alt="{{ $pizza->naam }}" 
+                    class="w-full h-48 object-cover"
+                />
+
+                <div class="p-4">
+                    <h2 class="text-xl font-bold mb-2">{{ $pizza->naam }}</h2>
+                    <p class="text-gray-600 mb-4">
+                        Ingrediënten:
+                        @foreach ($pizza->ingredienten as $ingredient)
+                            {{ $ingredient->naam }}@if(!$loop->last), @endif
+                        @endforeach
+                    </p>
+                    <p class="text-lg font-semibold text-gray-800">
+                        &euro;{{ number_format($pizza->ingredienten->sum('prijs'), 2, ',', '.') }}
+                    </p>
                 </div>
+
+                <a href="{{ route('bestellingen.index') }}"
+                   class="absolute bottom-2 left-2"
+                   title="Bestellen">
+                    <img 
+                        src="{{ asset('images/plus-icon.png') }}" 
+                        alt="Bestel deze pizza" 
+                        class="w-8 h-8"
+                    >
+                </a>
+            </div>
+        @endforeach
+    </div>
+
             @endif
 
         @else
