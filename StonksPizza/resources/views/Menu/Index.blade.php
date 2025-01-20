@@ -86,7 +86,11 @@
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     @foreach ($pizzas as $pizza)
                         <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-                            <img src="{{ $pizza->image_url }}" alt="{{ $pizza->naam }}" class="w-full h-48 object-cover">
+                        <img 
+    src="{{ $pizza->image ? asset('storage/' . $pizza->image) : 'fallback-afbeelding.png' }}" 
+    alt="{{ $pizza->naam }}" 
+    class="w-full h-48 object-cover" 
+/>
                             <div class="p-4">
                                 <h2 class="text-xl font-bold mb-2">{{ $pizza->naam }}</h2>
                                 <p class="text-gray-600 mb-4">

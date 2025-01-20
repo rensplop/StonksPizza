@@ -8,7 +8,8 @@ class Pizza extends Model
 {
     protected $fillable = [
         'naam',
-        'size_id'
+        'size_id',
+        'image'
     ];
 
     public function ingredienten()

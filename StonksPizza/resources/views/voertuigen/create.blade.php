@@ -13,7 +13,7 @@
         <nav class="space-x-6">
             <a href="{{ url('/') }}" class="text-white hover:text-yellow-300 transition duration-300">Home</a>
             <a href="{{ route('menu.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Menu</a>
-            <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Voertuigen</a>
+            <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300 transition duration=300">Voertuigen</a>
             @auth
                 <a href="{{ route('dashboard') }}" class="text-white hover:text-yellow-300 transition duration-300">Account</a>
             @else
@@ -36,7 +36,8 @@
         </div>
     @endif
 
-    <form action="{{ route('voertuigen.store') }}" method="POST" class="bg-white p-6 rounded shadow-md">
+    <!-- Belangrijk: enctype="multipart/form-data" voor file uploads -->
+    <form action="{{ route('voertuigen.store') }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded shadow-md">
         @csrf
         
         <div class="mb-4">
@@ -60,7 +61,10 @@
             </select>
         </div>
 
-
+        <div class="mb-4">
+            <label for="image" class="block mb-1 font-semibold">Afbeelding (optioneel)</label>
+            <input type="file" id="image" name="image" class="w-full px-4 py-2 border rounded" accept="image/*">
+        </div>
 
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
             Voertuig Aanmaken

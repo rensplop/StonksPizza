@@ -42,7 +42,10 @@
             </div>
         @endif
 
-        <form action="{{ route('voertuigen.update', $voertuig->id) }}" method="POST" class="bg-white p-6 rounded shadow-md">
+        <form action="{{ route('voertuigen.update', $voertuig->id) }}" 
+              method="POST" 
+              enctype="multipart/form-data" 
+              class="bg-white p-6 rounded shadow-md">
             @csrf
             @method('PUT')
 
@@ -75,6 +78,22 @@
                     <option value="bestelbus"{{ old('soort', $voertuig->soort) == 'bestelbus' ? 'selected' : '' }}>Bestelbus</option>
                     <option value="brommer"  {{ old('soort', $voertuig->soort) == 'brommer' ? 'selected' : '' }}>Brommer</option>
                 </select>
+            </div>
+
+            @if($voertuig->image ?? false)
+                <div class="mb-4">
+                    <p class="mb-1 font-semibold">Huidige Afbeelding:</p>
+                    <img 
+                        src="{{ asset('storage/' . $voertuig->image) }}" 
+                        alt="Voertuig afbeelding" 
+                        class="w-48 h-auto border rounded"
+                    >
+                </div>
+            @endif
+
+            <div class="mb-4">
+                <label for="image" class="block mb-1 font-semibold">Afbeelding (optioneel)</label>
+                <input type="file" id="image" name="image" class="w-full px-4 py-2 border rounded" accept="image/*">
             </div>
 
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
