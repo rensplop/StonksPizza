@@ -91,7 +91,6 @@
                     alt="{{ $pizza->naam }}" 
                     class="w-full h-48 object-cover"
                 />
-
                 <div class="p-4">
                     <h2 class="text-xl font-bold mb-2">{{ $pizza->naam }}</h2>
                     <p class="text-gray-600 mb-4">
@@ -104,19 +103,23 @@
                         &euro;{{ number_format($pizza->ingredienten->sum('prijs'), 2, ',', '.') }}
                     </p>
                 </div>
-
-                <a href="{{ route('bestellingen.index') }}"
-                   class="absolute bottom-2 left-2"
-                   title="Bestellen">
-                    <img 
-                        src="{{ asset('images/plus-icon.png') }}" 
-                        alt="Bestel deze pizza" 
-                        class="w-8 h-8"
-                    >
+                <a href="{{ route('bestellingen.index') }}" class="absolute bottom-2 right-2 text-gray-700 hover:text-gray-900" title="Naar bestelpagina">
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                         fill="none"
+                         viewBox="0 0 24 24"
+                         stroke-width="1.5"
+                         stroke="currentColor"
+                         class="w-8 h-8">
+                      <path stroke-linecap="round"
+                            stroke-linejoin="round"
+                            d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                    </svg>
                 </a>
             </div>
         @endforeach
     </div>
+
+
 
             @endif
 
