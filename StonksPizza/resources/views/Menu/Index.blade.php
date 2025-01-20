@@ -32,7 +32,6 @@
     <main class="container mx-auto px-4 py-8 flex-grow">
         <h1 class="text-4xl font-semibold text-center mb-6">Ons Pizza Menu</h1>
 
-        {{-- Als de gebruiker ingelogd is --}}
         @auth
             {{-- Als de gebruiker een admin-rol heeft --}}
             @if(auth()->user()->hasRole('admin'))
@@ -83,7 +82,6 @@
                     </table>
                 </div>
 
-            {{-- Als de gebruiker een user-rol heeft --}}
             @elseif(auth()->user()->hasRole('user'))
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     @foreach ($pizzas as $pizza)
@@ -106,14 +104,12 @@
                 </div>
             @endif
 
-        {{-- Anders (als de gebruiker niet is ingelogd) --}}
         @else
             <p class="text-center text-lg mt-10">
                 <strong>Log in</strong> om het menu te bekijken.
             </p>
         @endauth
 
-        {{-- Success-melding --}}
         @if (session('success'))
             <div class="bg-green-500 text-white p-4 mb-4 rounded-md">
                 {{ session('success') }}
