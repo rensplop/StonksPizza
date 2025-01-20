@@ -17,9 +17,7 @@
     </style>
 </head>
 
-<body class="flex flex-col min-h-screen">
-    <!-- Header -->
-    <header class="bg-yellow-500 text-white py-4 shadow">
+<header class="bg-yellow-500 text-white py-4 shadow">
         <div class="container mx-auto px-4">
             <h1 class="text-3xl font-bold">Stonks Pizza</h1>
             <nav class="space-x-6">
@@ -30,6 +28,7 @@
                 @auth
                 @if(auth()->user()->hasRole('admin'))
                 <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Voertuigen</a>
+                <a href="{{ route('medewerkers.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Medewerkers</a>
                 @endif
                 @endauth
                 @auth
@@ -41,7 +40,7 @@
         </div>
     </header>
 
-    <!-- Main Content -->
+
     <main class="flex-grow flex items-center justify-center">
     @auth
     @if(auth()->user()->hasRole('admin'))

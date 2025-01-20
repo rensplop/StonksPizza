@@ -18,6 +18,7 @@
                 @auth
                 @if(auth()->user()->hasRole('admin'))
                 <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Voertuigen</a>
+                <a href="{{ route('medewerkers.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Medewerkers</a>
                 @endif
                 @endauth
                 @auth
@@ -28,6 +29,7 @@
             </nav>
         </div>
     </header>
+
 
     <main class="container mx-auto px-4 py-8 flex-grow">
         <h2 class="text-3xl font-semibold mb-4">Over Onze Pizzeria</h2>

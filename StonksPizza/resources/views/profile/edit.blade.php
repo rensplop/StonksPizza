@@ -9,17 +9,22 @@
 </head>
 
 <body class="flex flex-col min-h-screen">
-    <!-- Header -->
-    <header class="bg-yellow-500 text-white shadow-lg py-6">
-        <div class="container mx-auto flex justify-between items-center">
-            <h1 class="text-4xl font-bold tracking-wide">Pizzeria</h1>
+<header class="bg-yellow-500 text-white py-4 shadow">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-bold">Stonks Pizza</h1>
             <nav class="space-x-6">
                 <a href="{{ url('/') }}" class="text-white hover:text-yellow-300 transition duration-300">Home</a>
                 <a href="{{ route('menu.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Menu</a>
                 <a href="{{ route('about.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Over ons</a>
                 <a href="{{ route('contact.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Contact</a>
                 @auth
-                    <a href="{{ route('profile.edit') }}" class="text-white hover:text-yellow-300 transition duration-300">Account</a>
+                @if(auth()->user()->hasRole('admin'))
+                <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Voertuigen</a>
+                <a href="{{ route('medewerkers.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Medewerkers</a>
+                @endif
+                @endauth
+                @auth
+                    <a href="{{ route('dashboard') }}" class="text-white hover:text-yellow-300 transition duration-300">Account</a>
                 @else
                     <a href="{{ route('login') }}" class="text-white hover:text-yellow-300 transition duration-300">Inloggen</a>
                 @endauth
@@ -27,7 +32,7 @@
         </div>
     </header>
 
-    <!-- Main Content -->
+
     <main class="flex-grow flex items-center justify-center">
         <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
             <h2 class="text-3xl font-semibold text-center mb-8">Profiel Bewerken</h2>
