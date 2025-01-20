@@ -7,9 +7,9 @@
 </head>
 <body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
 
-    <header class="bg-yellow-500 text-white py-4 shadow">
-        <div class="container mx-auto">
-            <h1 class="text-3xl font-bold">Edit Pizza</h1>
+<header class="bg-yellow-500 text-white py-4 shadow">
+        <div class="container mx-auto px-4">
+            <h1 class="text-3xl font-bold">Stonks Pizza</h1>
             <nav class="space-x-6">
                 <a href="{{ url('/') }}" class="text-white hover:text-yellow-300 transition duration-300">Home</a>
                 <a href="{{ route('menu.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Menu</a>
