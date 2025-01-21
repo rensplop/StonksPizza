@@ -52,4 +52,13 @@ class BestellingController extends Controller
             ->route('bestellingen.index')
             ->with('success','Pizza toegevoegd aan bestelling');
     }
+
+    public function destroyRegel(Bestelregel $regel)
+{
+    $regel->delete();
+    return redirect()
+        ->route('bestellingen.index')
+        ->with('success','Pizza verwijderd uit bestelling');
+}
+
 }

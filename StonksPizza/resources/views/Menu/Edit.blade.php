@@ -16,9 +16,9 @@
                 <a href="{{ route('about.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Over ons</a>
                 <a href="{{ route('contact.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Contact</a>
                 @auth
-                @if(auth()->user()->hasRole('admin'))
-                <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Voertuigen</a>
-                @endif
+                    @if(auth()->user()->hasRole('admin'))
+                        <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Voertuigen</a>
+                    @endif
                 @endauth
                 @auth
                     <a href="{{ route('dashboard') }}" class="text-white hover:text-yellow-300 transition duration-300">Account</a>
@@ -48,7 +48,12 @@
             </div>
         @endif
 
-        <form action="{{ route('pizza.update', $pizza->id) }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded shadow-md">
+        <form
+            action="{{ route('pizza.update', $pizza->id) }}"
+            method="POST"
+            enctype="multipart/form-data"
+            class="bg-white p-6 rounded shadow-md"
+        >
             @csrf
             @method('PUT')
 
@@ -129,9 +134,11 @@
     </main>
 
     <footer class="bg-gray-800 text-gray-200 text-center py-2">
-        <p>&copy; 2024 Pizzeria. Alle rechten voorbehouden.
+        <p>
+            &copy; 2024 Pizzeria. Alle rechten voorbehouden.
             <a href="#" class="text-yellow-500 hover:underline">Privacyverklaring</a>
         </p>
     </footer>
+
 </body>
 </html>
