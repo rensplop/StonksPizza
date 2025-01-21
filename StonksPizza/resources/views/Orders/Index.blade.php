@@ -28,7 +28,6 @@
             </div>
         @endif
 
-        {{-- Pizza-lijst (selecteren + Toevoegen) --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
             @foreach($pizzas as $pizza)
                 @php
@@ -58,7 +57,6 @@
             @endforeach
         </div>
 
-        {{-- Winkelmandje --}}
         <div class="bg-white rounded shadow p-4">
             <h3 class="text-2xl font-semibold mb-4">Mijn bestelling</h3>
             @if($bestelling && $bestelling->bestelregels->count())
@@ -105,6 +103,10 @@
                     Totaal: &euro;{{ number_format($totaal, 2, ',', '.') }}
                 </div>
                 <p class="mt-2">Status: <strong>{{ $bestelling->status }}</strong></p>
+                <a href="{{ route('status.index') }}"
+                   class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+                    Bestel nu
+                </a>
             @else
                 <p>Er zijn nog geen items aan je bestelling toegevoegd.</p>
             @endif

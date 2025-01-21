@@ -6,10 +6,10 @@ use App\Models\Bestelling;
 use App\Models\Bestelregel;
 use App\Models\Pizza;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BestellingController extends Controller
 {
-
     public function index()
     {
         $pizzas = Pizza::all();
@@ -20,7 +20,6 @@ class BestellingController extends Controller
         return view('Orders.index', compact('pizzas', 'bestelling'));
     }
 
-
     public function store(Request $request)
     {
         $request->validate([
@@ -29,7 +28,7 @@ class BestellingController extends Controller
 
         $bestelling = Bestelling::firstOrCreate(
             ['status' => 'open'],
-            ['datum'  => now()]
+            ['datum' => now()]
         );
 
         $regel = Bestelregel::where('bestelling_id', $bestelling->id)
@@ -53,12 +52,46 @@ class BestellingController extends Controller
             ->with('success', 'Pizza toegevoegd aan bestelling');
     }
 
-
     public function destroyRegel(Bestelregel $regel)
     {
         $regel->delete();
         return redirect()
             ->route('bestellingen.index')
             ->with('success', 'Pizza verwijderd uit bestelling');
+    }
+
+    public function statusIndex()
+    {
+        if(Auth::check() && Auth::user()->hasRole('medewerker')) {
+            $alleBestellingen = Bestelling::with('bestelregels.pizza')->get();
+            return view('Status.index', ['alleBestellingen' => $alleBestellingen]);
+        } else {
+            $bestelling = Bestelling::where('status','open')
+                ->orWhere('status','in voorbereiding')
+                ->orWhere('status','geannuleerd')
+                ->with('bestelregels.pizza')
+                ->first();
+            return view('Status.index', ['bestelling' => $bestelling]);
+        }
+    }
+
+    public function annuleer($id)
+    {
+        $bestelling = Bestelling::findOrFail($id);
+        $bestelling->status = 'geannuleerd';
+        $bestelling->save();
+        return redirect()
+            ->route('status.index')
+            ->with('success', 'Bestelling is geannuleerd');
+    }
+
+    public function updateStatus(Request $request, $id)
+    {
+        $bestelling = Bestelling::findOrFail($id);
+        $bestelling->status = $request->status;
+        $bestelling->save();
+        return redirect()
+            ->route('status.index')
+            ->with('success', 'Status bijgewerkt');
     }
 }
