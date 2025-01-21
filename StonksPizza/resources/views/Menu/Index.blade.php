@@ -125,7 +125,7 @@
 
         @else
             <p class="text-center text-lg mt-10">
-                <strong>Log in</strong> om het menu te bekijken.
+                <a href="{{ route('login') }}" class="text-sm text-yellow-500 hover:underline text-xl">Log in</a> om het menu te bekijken.
             </p>
         @endauth
 
