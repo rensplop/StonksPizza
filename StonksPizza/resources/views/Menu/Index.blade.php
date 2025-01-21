@@ -19,8 +19,6 @@
                     @if(auth()->user()->hasRole('admin'))
                         <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Voertuigen</a>
                     @endif
-                @endauth
-                @auth
                     <a href="{{ route('dashboard') }}" class="text-white hover:text-yellow-300 transition duration-300">Account</a>
                 @else
                     <a href="{{ route('login') }}" class="text-white hover:text-yellow-300 transition duration-300">Inloggen</a>
@@ -34,6 +32,7 @@
 
         @auth
             @if(auth()->user()->hasRole('admin'))
+                {{-- ADMIN-ziet hier de tabel met bewerk/verwijder-knoppen --}}
                 <a href="{{ route('pizza.create') }}"
                    class="bg-blue-500 text-white px-6 py-3 rounded-lg mb-6 inline-block shadow-md hover:bg-blue-600 transition duration-300">
                     Nieuwe Pizza Toevoegen
@@ -84,12 +83,13 @@
                     </table>
                 </div>
 
-            @elseif(auth()->user()->hasRole('medewerker'))
+            @elseif(auth()->user()->hasRole('medewerker') || auth()->user()->hasRole('user'))
+                {{-- MEDEWERKER / USER - ziet hier de grid met afbeeldingen --}}
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     @foreach ($pizzas as $pizza)
                         <div class="relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
                             <img
-                                src="{{ $pizza->image ? asset('storage/' . $pizza->image) : 'fallback-afbeelding.png' }}"
+                                src="{{ $pizza->image ? asset('storage/' . $pizza->image) : asset('fallback-afbeelding.png') }}"
                                 alt="{{ $pizza->naam }}"
                                 class="w-full h-48 object-cover"
                             />
@@ -114,14 +114,17 @@
                                      stroke-width="1.5"
                                      stroke="currentColor"
                                      class="w-8 h-8">
-                                  <path stroke-linecap="round"
-                                        stroke-linejoin="round"
-                                        d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                    <path stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
                                 </svg>
                             </a>
                         </div>
                     @endforeach
                 </div>
+            @else
+                {{-- Gebruiker is ingelogd, maar geen admin/medewerker/user-rol --}}
+                <p class="text-center mt-10">Je hebt geen toegang tot het menu.</p>
             @endif
         @else
             <p class="text-center text-lg mt-10">
