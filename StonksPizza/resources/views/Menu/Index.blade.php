@@ -32,7 +32,6 @@
 
         @auth
             @if(auth()->user()->hasRole('admin'))
-                {{-- Admin: tabelweergave (bewerken/verwijderen) --}}
                 <a href="{{ route('pizza.create') }}"
                    class="bg-blue-500 text-white px-6 py-3 rounded-lg mb-6 inline-block shadow-md hover:bg-blue-600 transition duration-300">
                     Nieuwe Pizza Toevoegen
@@ -84,7 +83,6 @@
                 </div>
 
             @elseif(auth()->user()->hasRole('medewerker') || auth()->user()->hasRole('user'))
-                {{-- Medewerker / User: gridweergave met afbeeldingen --}}
                 <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
                     @foreach ($pizzas as $pizza)
                         <div class="relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
@@ -123,7 +121,6 @@
                     @endforeach
                 </div>
             @else
-                {{-- Gebruiker is ingelogd, maar geen admin/medewerker/user-rol --}}
                 <p class="text-center mt-10">Je hebt geen toegang tot het menu.</p>
             @endif
         @else

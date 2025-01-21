@@ -11,26 +11,35 @@ use App\Http\Controllers\VoertuigController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
-
-
 Route::resource('voertuigen', VoertuigController::class)->parameters([
     'voertuigen' => 'voertuig'
 ]);
+
 
 Route::resource('bestellingen', BestellingController::class);
 
 Route::delete('/bestelregel/{regel}', [BestellingController::class, 'destroyRegel'])
     ->name('bestellingen.destroyRegel');
-    
+
+Route::get('/status', [BestellingController::class, 'statusIndex'])->name('status.index');
+
+Route::patch('/status/annuleer/{id}', [BestellingController::class, 'annuleer'])
+    ->name('status.annuleer');
+
+Route::patch('/status/update/{id}', [BestellingController::class, 'updateStatus'])
+    ->name('status.updateStatus');
+
+Route::resource('bestellingen', BestellingController::class);
+
+Route::delete('/bestelregel/{regel}', [BestellingController::class, 'destroyRegel'])
+    ->name('bestellingen.destroyRegel');
+
 Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');
 Route::get('/pizza/create', [PizzaController::class, 'create'])->name('pizza.create');
 Route::resource('pizza', PizzaController::class)->except(['index']);
 
 Route::resource('klanten', KlantController::class);
-
-
 Route::resource('bestelregels', BestelregelController::class);
-
 Route::resource('ingredients', IngredientController::class);
 
 Route::middleware('auth')->group(function () {
