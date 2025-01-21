@@ -32,7 +32,7 @@
 
 <div class="container max-w-screen-xl mx-auto px-4">
     @auth
-    <div class="p-6 rounded-lg">
+    <div class=" p-6 rounded-lg">
     <h1 class="text-xl font-bold mb-4 text-center">My Order</h1>
     @foreach ($pizzas as $pizza)
         <div class="bg-white rounded-lg shadow-md p-4 flex justify-between items-center mb-4">
