@@ -2,7 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pizza;
+use App\Models\Ingredient;
 use Illuminate\Http\Request;
+use App\Models\Size;
 
 class BestelregelController extends Controller
 {
@@ -11,7 +14,10 @@ class BestelregelController extends Controller
      */
     public function index()
     {
-        //
+        $pizzas = Pizza::with('Size')->get();
+        $ingredients = Ingredient::all();
+
+        return view('orders.index', compact('pizzas'));
     }
 
     /**
@@ -57,8 +63,11 @@ class BestelregelController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Pizza $pizza)
     {
-        //
+        $pizza->ingredienten()->detach();
+        $pizza->delete();
+
+        return redirect()->route('menu.index')->with('success', 'Pizza deleted!');
     }
 }
