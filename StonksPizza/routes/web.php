@@ -19,7 +19,9 @@ Route::resource('voertuigen', VoertuigController::class)->parameters([
 
 Route::resource('bestellingen', BestellingController::class);
 
-
+Route::delete('/bestelregel/{regel}', [BestellingController::class, 'destroyRegel'])
+    ->name('bestellingen.destroyRegel');
+    
 Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');
 Route::get('/pizza/create', [PizzaController::class, 'create'])->name('pizza.create');
 Route::resource('pizza', PizzaController::class)->except(['index']);
