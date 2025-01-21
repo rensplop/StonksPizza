@@ -27,9 +27,14 @@
                 <a href="{{ route('about.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Over ons</a>
                 <a href="{{ route('contact.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Contact</a>
                 @auth
-                @if(auth()->user()->hasRole('admin'))
-                <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Voertuigen</a>
-                @endif
+                @auth
+    @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('medewerker'))
+        <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300 transition duration-300">
+            Voertuigen
+        </a>
+    @endif
+@endauth
+
                 @endauth
                 @auth
                     <a href="{{ route('dashboard') }}" class="text-white hover:text-yellow-300 transition duration-300">Account</a>
@@ -47,7 +52,7 @@
         <p class="text-center text-lg text-gray-600 max-w-2xl mx-auto mb-6">Welcome to our Pizzeria! Indulge in our freshly made pizzas, crafted with the finest ingredients and baked to perfection. Experience the taste of tradition with every bite.</p>
 
         <div class="flex justify-center">
-            <a class="bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-red-600 transition duration-300 ease-in-out" href="{{ route('menu.index') }}">Order Now</a>
+            <a class="bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-red-600 transition duration-300 ease-in-out" href="{{ route('orders.index') }}">Order Now</a>
         </div>
 
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">

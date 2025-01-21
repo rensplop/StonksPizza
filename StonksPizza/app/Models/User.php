@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
+
+
 class User extends Authenticatable
 {
     use HasFactory, Notifiable;
@@ -31,16 +33,18 @@ class User extends Authenticatable
         ];
     }
 
-    // Controleer of de gebruiker een admin is
     public function isAdmin()
     {
         return $this->role === 'admin';
     }
 
-    // Controleer of de gebruiker een specifieke rol heeft
     public function hasRole($role)
     {
         return $this->role === $role;
     }
+
+    
+
+
 }
 

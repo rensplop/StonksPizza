@@ -8,17 +8,18 @@ use App\Http\Controllers\BestelregelController;
 use App\Http\Controllers\IngredientController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\VoertuigController;
+use App\Models\Bestelling;
 
 Route::resource('voertuigen', VoertuigController::class)->parameters([
     'voertuigen' => 'voertuig'
 ]);
 
+Route::get('/bestelling', [BestelregelController::class, 'index'])->name('orders.index');
+
 Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');
 Route::resource('pizza', PizzaController::class)->except(['index']);
-
 
 Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');
 Route::get('/pizza/create', [PizzaController::class, 'create'])->name('pizza.create');
@@ -50,10 +51,6 @@ Route::get('/contact', function () {
     return view('Contact.Index');
 })->name('contact.index');
 
-Route::get('/voertuigen', function () {
-    return view('voertuigen.Index');
-})->name('voertuigen.index');
-
 Route::get('/mylogin', function () {
     if (Auth::check()) {
         return redirect('/dashboard');
@@ -62,8 +59,10 @@ Route::get('/mylogin', function () {
 })->name('mylogin.index');
 
 Route::get('/login', function () {
-    return view('auth.login'); 
+    return view('auth.login');
 })->name('login');
+
+
 
 Route::get('/logout', function () {
     Auth::logout();
