@@ -40,7 +40,7 @@
                 Nieuw Voertuig Toevoegen
             </a>
         @elseif(auth()->user()->hasRole('medewerker'))
-            <h1 class="text-4xl font-semibold text-center mb-6">Overzicht Bestelvoertuigen (Alleen-lezen)</h1>
+            <h1 class="text-4xl font-semibold text-center mb-6">Overzicht Bestelvoertuigen</h1>
         @endif
 
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
@@ -70,7 +70,6 @@
                                 </button>
                             </form>
                         @elseif(auth()->user()->hasRole('medewerker'))
-                            <span class="inline-block bg-gray-300 text-gray-700 px-4 py-2 rounded shadow-md">Alleen-lezen</span>
                         @endif
                     </div>
                 </div>
