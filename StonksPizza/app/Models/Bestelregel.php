@@ -10,12 +10,7 @@ class Bestelregel extends Model
     use HasFactory;
 
     protected $table = 'bestelregels';
-    protected $fillable = [
-        'aantal',
-        'afmeting',
-        'pizza_id',
-        'bestelling_id'
-    ];
+    protected $fillable = ['aantal', 'afmeting', 'pizza_id', 'bestelling_id'];
 
     public function bestelling()
     {

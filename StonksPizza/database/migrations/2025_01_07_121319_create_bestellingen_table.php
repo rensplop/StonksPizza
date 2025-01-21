@@ -10,21 +10,9 @@ return new class extends Migration
     {
         Schema::create('bestellingen', function (Blueprint $table) {
             $table->id();
-            $table->date('datum');
-            $table->string('status');
-            $table->unsignedBigInteger('klant_id');
-            $table->unsignedBigInteger('user_id')->nullable();
+            $table->date('datum');   
+            $table->string('status'); 
             $table->timestamps();
-
-            $table->foreign('klant_id')
-                ->references('id')
-                ->on('klanten')
-                ->onDelete('cascade');
-
-            $table->foreign('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
         });
     }
 

@@ -17,14 +17,14 @@ return new class extends Migration
             $table->timestamps();
 
             $table->foreign('pizza_id')
-                ->references('id')
-                ->on('pizzas')
-                ->onDelete('cascade');
+                  ->references('id')
+                  ->on('pizzas')
+                  ->onDelete('cascade');
 
             $table->foreign('bestelling_id')
-                ->references('id')
-                ->on('bestellingen')
-                ->onDelete('cascade');
+                  ->references('id')
+                  ->on('bestellingen')
+                  ->onDelete('cascade');
         });
     }
 
