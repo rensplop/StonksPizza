@@ -28,6 +28,7 @@
             </div>
         @endif
 
+        {{-- Pizza-lijst (selecteren + Toevoegen) --}}
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 mb-8">
             @foreach($pizzas as $pizza)
                 @php
@@ -57,51 +58,49 @@
             @endforeach
         </div>
 
+        {{-- Winkelmandje --}}
         <div class="bg-white rounded shadow p-4">
             <h3 class="text-2xl font-semibold mb-4">Mijn bestelling</h3>
             @if($bestelling && $bestelling->bestelregels->count())
-            <table class="min-w-full mb-4">
-    <thead>
-        <tr class="border-b">
-            <th class="py-2 text-left">Pizza</th>
-            <th class="py-2 text-left">Aantal</th>
-            <th class="py-2 text-left">Afmeting</th>
-            <th class="py-2 text-left">Totaal</th>
-            <th class="py-2 text-left">Verwijderen</th> {{-- NIEUW --}}
-        </tr>
-    </thead>
-    <tbody>
-        @php $totaal = 0; @endphp
-        @foreach($bestelling->bestelregels as $regel)
-            @php
-                $pizzaPrijs = $regel->pizza->ingredienten
-                    ? $regel->pizza->ingredienten->sum('prijs')
-                    : 0;
-                $subtotaal  = $pizzaPrijs * $regel->aantal;
-                $totaal    += $subtotaal;
-            @endphp
-            <tr class="border-b">
-                <td class="py-2">{{ $regel->pizza->naam }}</td>
-                <td class="py-2">{{ $regel->aantal }}</td>
-                <td class="py-2">{{ $regel->afmeting }}</td>
-                <td class="py-2">&euro;{{ number_format($subtotaal, 2, ',', '.') }}</td>
-
-                {{-- VERWIJDERKNOP --}}
-                <td class="py-2">
-                    <form action="{{ route('bestellingen.destroyRegel', $regel->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit"
-                                class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
-                            X
-                        </button>
-                    </form>
-                </td>
-            </tr>
-        @endforeach
-    </tbody>
-</table>
-
+                <table class="min-w-full mb-4">
+                    <thead>
+                        <tr class="border-b">
+                            <th class="py-2 text-left">Pizza</th>
+                            <th class="py-2 text-left">Aantal</th>
+                            <th class="py-2 text-left">Afmeting</th>
+                            <th class="py-2 text-left">Totaal</th>
+                            <th class="py-2 text-left">Verwijderen</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @php $totaal = 0; @endphp
+                        @foreach($bestelling->bestelregels as $regel)
+                            @php
+                                $pizzaPrijs = $regel->pizza->ingredienten
+                                    ? $regel->pizza->ingredienten->sum('prijs')
+                                    : 0;
+                                $subtotaal  = $pizzaPrijs * $regel->aantal;
+                                $totaal    += $subtotaal;
+                            @endphp
+                            <tr class="border-b">
+                                <td class="py-2">{{ $regel->pizza->naam }}</td>
+                                <td class="py-2">{{ $regel->aantal }}</td>
+                                <td class="py-2">{{ $regel->afmeting }}</td>
+                                <td class="py-2">&euro;{{ number_format($subtotaal, 2, ',', '.') }}</td>
+                                <td class="py-2">
+                                    <form action="{{ route('bestellingen.destroyRegel', $regel->id) }}" method="POST">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit"
+                                                class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded">
+                                            X
+                                        </button>
+                                    </form>
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
                 <div class="text-xl font-bold">
                     Totaal: &euro;{{ number_format($totaal, 2, ',', '.') }}
                 </div>

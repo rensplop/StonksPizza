@@ -9,17 +9,17 @@ use Illuminate\Http\Request;
 
 class BestellingController extends Controller
 {
+
     public function index()
     {
         $pizzas = Pizza::all();
-
-
-        $bestelling = Bestelling::where('status','open')
+        $bestelling = Bestelling::where('status', 'open')
             ->with('bestelregels.pizza')
             ->first();
 
         return view('Orders.index', compact('pizzas', 'bestelling'));
     }
+
 
     public function store(Request $request)
     {
@@ -50,15 +50,15 @@ class BestellingController extends Controller
 
         return redirect()
             ->route('bestellingen.index')
-            ->with('success','Pizza toegevoegd aan bestelling');
+            ->with('success', 'Pizza toegevoegd aan bestelling');
     }
 
-    public function destroyRegel(Bestelregel $regel)
-{
-    $regel->delete();
-    return redirect()
-        ->route('bestellingen.index')
-        ->with('success','Pizza verwijderd uit bestelling');
-}
 
+    public function destroyRegel(Bestelregel $regel)
+    {
+        $regel->delete();
+        return redirect()
+            ->route('bestellingen.index')
+            ->with('success', 'Pizza verwijderd uit bestelling');
+    }
 }
