@@ -7,7 +7,7 @@
 </head>
 <body class="bg-gray-100 text-gray-800 font-sans min-h-screen flex flex-col">
     <header class="bg-yellow-500 text-white shadow-lg py-6">
-        <div class="container mx-auto flex justify-between items-center">
+        <div class="container mx-auto flex justify-between items-center px-4">
             <h1 class="text-4xl font-bold tracking-wide">Pizzeria - Voertuigen</h1>
             <nav class="space-x-6">
                 <a href="{{ url('/') }}" class="text-white hover:text-yellow-300 transition duration-300">Home</a>
@@ -27,50 +27,59 @@
     </header>
 
     <main class="container mx-auto px-4 py-8 flex-grow">
-        <h1 class="text-4xl font-semibold text-center mb-6">Bestelvoertuigen</h1>
         @if (session('success'))
             <div class="bg-green-500 text-white p-4 mb-4 rounded-md">
                 {{ session('success') }}
             </div>
         @endif
+
         @if(auth()->user()->hasRole('admin'))
-            <a href="{{ route('voertuigen.create') }}" class="bg-blue-500 text-white px-6 py-3 rounded-lg mb-6 inline-block shadow-md hover:bg-blue-600 transition duration-300">Nieuw Voertuig Toevoegen</a>
+            <h1 class="text-4xl font-semibold text-center mb-6">Bestelvoertuigen Beheren</h1>
+            <a href="{{ route('voertuigen.create') }}"
+               class="bg-blue-500 text-white px-6 py-3 rounded-lg mb-6 inline-block shadow-md hover:bg-blue-600 transition duration-300">
+                Nieuw Voertuig Toevoegen
+            </a>
+        @elseif(auth()->user()->hasRole('medewerker'))
+            <h1 class="text-4xl font-semibold text-center mb-6">Overzicht Bestelvoertuigen</h1>
         @endif
-        <div class="overflow-x-auto bg-white shadow-lg rounded-lg">
-            <table class="w-full table-auto border-collapse border border-gray-200">
-                <thead class="bg-gray-100">
-                    <tr>
-                        <th class="border px-4 py-2 text-left">Naam</th>
-                        <th class="border px-4 py-2 text-left">Merk</th>
-                        <th class="border px-4 py-2 text-left">Soort</th>
-                        <th class="border px-4 py-2">Acties</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($voertuigen as $voertuig)
-                        <tr class="hover:bg-gray-50">
-                            <td class="border px-4 py-2">{{ $voertuig->naam }}</td>
-                            <td class="border px-4 py-2">{{ $voertuig->merk }}</td>
-                            <td class="border px-4 py-2">{{ $voertuig->soort }}</td>
-                            <td class="border px-4 py-2">
-                                @if(auth()->user()->hasRole('admin'))
-                                    <a href="{{ route('voertuigen.edit', $voertuig->id) }}" class="bg-yellow-500 text-white px-4 py-2 rounded shadow-md hover:bg-yellow-600 transition duration-300">Bewerken</a>
-                                    <form action="{{ route('voertuigen.destroy', $voertuig->id) }}" method="POST" class="inline-block ml-2">
-                                        @csrf
-                                        @method('DELETE')
-                                        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded shadow-md hover:bg-red-600 transition duration-300" onclick="return confirm('Weet je zeker dat je dit voertuig wilt verwijderen?')">Verwijderen</button>
-                                    </form>
-                                @endif
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+            @foreach ($voertuigen as $voertuig)
+                <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                    <div class="p-4">
+                        <h2 class="text-xl font-bold mb-2">{{ $voertuig->naam }}</h2>
+                        <p class="text-gray-600 mb-2">
+                            <span class="font-semibold">Merk:</span> {{ $voertuig->merk }}
+                        </p>
+                        <p class="text-gray-600 mb-4">
+                            <span class="font-semibold">Soort:</span> {{ $voertuig->soort }}
+                        </p>
+
+                        @if(auth()->user()->hasRole('admin'))
+                            <a href="{{ route('voertuigen.edit', $voertuig->id) }}"
+                               class="inline-block bg-yellow-500 text-white px-4 py-2 rounded shadow-md hover:bg-yellow-600 transition duration-300">
+                                Bewerken
+                            </a>
+                            <form action="{{ route('voertuigen.destroy', $voertuig->id) }}" method="POST" class="inline-block ml-2">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit"
+                                        class="bg-red-500 text-white px-4 py-2 rounded shadow-md hover:bg-red-600 transition duration-300"
+                                        onclick="return confirm('Weet je zeker dat je dit voertuig wilt verwijderen?')">
+                                    Verwijderen
+                                </button>
+                            </form>
+                        @elseif(auth()->user()->hasRole('medewerker'))
+                        @endif
+                    </div>
+                </div>
+            @endforeach
         </div>
     </main>
 
     <footer class="bg-gray-800 text-gray-400 text-center py-4">
-        <p>&copy; 2025 Pizzeria. Alle rechten voorbehouden.
+        <p>
+            &copy; 2025 Pizzeria. Alle rechten voorbehouden.
             <a href="#" class="text-yellow-500 hover:underline">Privacyverklaring</a>
         </p>
     </footer>

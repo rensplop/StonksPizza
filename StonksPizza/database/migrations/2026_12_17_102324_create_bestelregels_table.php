@@ -12,10 +12,9 @@ return new class extends Migration
             $table->id();
             $table->integer('aantal');
             $table->string('afmeting');
-            $table->unsignedBigInteger('pizza_id');      // verwijst naar je pizzas-tabel
-            $table->unsignedBigInteger('bestelling_id'); // verwijst naar bestellingen-tabel
+            $table->unsignedBigInteger('pizza_id');
+            $table->unsignedBigInteger('bestelling_id');
             $table->timestamps();
-
 
             $table->foreign('pizza_id')
                   ->references('id')

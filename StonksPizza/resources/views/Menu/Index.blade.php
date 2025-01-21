@@ -16,11 +16,9 @@
                 <a href="{{ route('about.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Over ons</a>
                 <a href="{{ route('contact.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Contact</a>
                 @auth
-                @if(auth()->user()->hasRole('admin'))
-                <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Voertuigen</a>
-                @endif
-                @endauth
-                @auth
+                    @if(auth()->user()->hasRole('admin'))
+                        <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Voertuigen</a>
+                    @endif
                     <a href="{{ route('dashboard') }}" class="text-white hover:text-yellow-300 transition duration-300">Account</a>
                 @else
                     <a href="{{ route('login') }}" class="text-white hover:text-yellow-300 transition duration-300">Inloggen</a>
@@ -31,76 +29,110 @@
 
     <main class="container mx-auto px-4 py-8 flex-grow">
         <h1 class="text-4xl font-semibold text-center mb-6">Ons Pizza Menu</h1>
+
         @auth
-        @if(auth()->user()->hasRole('admin'))
-        <a href="{{ route('pizza.create') }}" class="bg-blue-500 text-white px-6 py-3 rounded-lg mb-6 inline-block shadow-md hover:bg-blue-600 transition duration-300">
-            Nieuwe Pizza Toevoegen
-        </a>
+            @if(auth()->user()->hasRole('admin'))
+                {{-- ADMIN-ziet hier de tabel met bewerk/verwijder-knoppen --}}
+                <a href="{{ route('pizza.create') }}"
+                   class="bg-blue-500 text-white px-6 py-3 rounded-lg mb-6 inline-block shadow-md hover:bg-blue-600 transition duration-300">
+                    Nieuwe Pizza Toevoegen
+                </a>
 
-        <div class="overflow-x-auto bg-white shadow-lg rounded-lg">
-            <table class="w-full table-auto border-collapse border border-gray-200">
-                <thead class="bg-gray-100">
-                    <tr>
-                        <th class="border px-4 py-2 text-left">Naam</th>
-                        <th class="border px-4 py-2 text-left">Ingrediënten</th>
-                        <th class="border px-4 py-2 text-left">Totale Prijs</th>
-                        <th class="border px-4 py-2 text-left">Acties</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($pizzas as $pizza)
-                        @php
-                            $totalePrijs = $pizza->ingredienten->sum('prijs');
-                        @endphp
-                        <tr class="hover:bg-gray-50">
-                            <td class="border px-4 py-2">{{ $pizza->naam }}</td>
-                            <td class="border px-4 py-2">
-                                @foreach ($pizza->ingredienten as $ingredient)
-                                    {{ $ingredient->naam }}@if(!$loop->last), @endif
-                                @endforeach
-                            </td>
-                            <td class="border px-4 py-2">
-                                &euro;{{ number_format($totalePrijs, 2, ',', '.') }}
-                            </td>
-                            <td class="border px-4 py-2">
-                                <a href="{{ route('pizza.edit', $pizza) }}" class="bg-yellow-500 text-white px-4 py-2 rounded shadow-md hover:bg-yellow-600 transition duration-300">
-                                    Bewerken
-                                </a>
-                                <form action="{{ route('pizza.destroy', $pizza) }}" method="POST" class="inline-block ml-2">
-                                    @csrf
-                                    @method('DELETE')
-                                    <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded shadow-md hover:bg-red-600 transition duration-300">
-                                        Verwijderen
-                                    </button>
-                                </form>
-                            </td>
-                        </tr>
-                    @endforeach
-                </tbody>
-            </table>
-        </div>
-
-        @elseif(auth()->user()->hasRole('user'))
-        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-        @foreach ($pizzas as $pizza)
-            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-                <img src="{{ $pizza->image_url }}" alt="{{ $pizza->naam }}" class="w-full h-48 object-cover">
-                <div class="p-4">
-                    <h2 class="text-xl font-bold mb-2">{{ $pizza->naam }}</h2>
-                    <p class="text-gray-600 mb-4">
-                        Ingrediënten: 
-                        @foreach ($pizza->ingredienten as $ingredient)
-                            {{ $ingredient->naam }}@if(!$loop->last), @endif
-                        @endforeach
-                    </p>
-                    <p class="text-lg font-semibold text-gray-800">
-                        &euro;{{ number_format($pizza->ingredienten->sum('prijs'), 2, ',', '.') }}
-                    </p>
+                <div class="overflow-x-auto bg-white shadow-lg rounded-lg">
+                    <table class="w-full table-auto border-collapse border border-gray-200">
+                        <thead class="bg-gray-100">
+                            <tr>
+                                <th class="border px-4 py-2 text-left">Naam</th>
+                                <th class="border px-4 py-2 text-left">Ingrediënten</th>
+                                <th class="border px-4 py-2 text-left">Totale Prijs</th>
+                                <th class="border px-4 py-2 text-left">Acties</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($pizzas as $pizza)
+                                @php
+                                    $totalePrijs = $pizza->ingredienten->sum('prijs');
+                                @endphp
+                                <tr class="hover:bg-gray-50">
+                                    <td class="border px-4 py-2">{{ $pizza->naam }}</td>
+                                    <td class="border px-4 py-2">
+                                        @foreach ($pizza->ingredienten as $ingredient)
+                                            {{ $ingredient->naam }}@if(!$loop->last), @endif
+                                        @endforeach
+                                    </td>
+                                    <td class="border px-4 py-2">
+                                        &euro;{{ number_format($totalePrijs, 2, ',', '.') }}
+                                    </td>
+                                    <td class="border px-4 py-2">
+                                        <a href="{{ route('pizza.edit', $pizza) }}"
+                                           class="bg-yellow-500 text-white px-4 py-2 rounded shadow-md hover:bg-yellow-600 transition duration-300">
+                                            Bewerken
+                                        </a>
+                                        <form action="{{ route('pizza.destroy', $pizza) }}" method="POST" class="inline-block ml-2">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit"
+                                                    class="bg-red-500 text-white px-4 py-2 rounded shadow-md hover:bg-red-600 transition duration-300">
+                                                Verwijderen
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
-            </div>
-        @endforeach
-        </div>
-        @endif
+
+            @elseif(auth()->user()->hasRole('medewerker') || auth()->user()->hasRole('user'))
+                {{-- MEDEWERKER / USER - ziet hier de grid met afbeeldingen --}}
+                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+                    @foreach ($pizzas as $pizza)
+                        <div class="relative bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
+                            <img
+                                src="{{ $pizza->image ? asset('storage/' . $pizza->image) : asset('fallback-afbeelding.png') }}"
+                                alt="{{ $pizza->naam }}"
+                                class="w-full h-48 object-cover"
+                            />
+                            <div class="p-4">
+                                <h2 class="text-xl font-bold mb-2">{{ $pizza->naam }}</h2>
+                                <p class="text-gray-600 mb-4">
+                                    Ingrediënten:
+                                    @foreach ($pizza->ingredienten as $ingredient)
+                                        {{ $ingredient->naam }}@if(!$loop->last), @endif
+                                    @endforeach
+                                </p>
+                                <p class="text-lg font-semibold text-gray-800">
+                                    &euro;{{ number_format($pizza->ingredienten->sum('prijs'), 2, ',', '.') }}
+                                </p>
+                            </div>
+                            <a href="{{ route('bestellingen.index') }}"
+                               class="absolute bottom-2 right-2 text-gray-700 hover:text-gray-900"
+                               title="Naar bestelpagina">
+                                <svg xmlns="http://www.w3.org/2000/svg"
+                                     fill="none"
+                                     viewBox="0 0 24 24"
+                                     stroke-width="1.5"
+                                     stroke="currentColor"
+                                     class="w-8 h-8">
+                                    <path stroke-linecap="round"
+                                          stroke-linejoin="round"
+                                          d="M12 9v6m3-3H9m12 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                                </svg>
+                            </a>
+                        </div>
+                    @endforeach
+                </div>
+            @else
+                {{-- Gebruiker is ingelogd, maar geen admin/medewerker/user-rol --}}
+                <p class="text-center mt-10">Je hebt geen toegang tot het menu.</p>
+            @endif
+        @else
+            <p class="text-center text-lg mt-10">
+                <a href="{{ route('login') }}" class="text-sm text-yellow-500 hover:underline text-xl">
+                    Log in
+                </a>
+                om het menu te bekijken.
+            </p>
         @endauth
 
         @if (session('success'))

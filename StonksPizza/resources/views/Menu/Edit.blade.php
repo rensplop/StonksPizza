@@ -48,31 +48,36 @@
             </div>
         @endif
 
-        <form action="{{ route('pizza.update', $pizza->id) }}" method="POST" class="bg-white p-6 rounded shadow-md">
+        <form action="{{ route('pizza.update', $pizza->id) }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded shadow-md">
             @csrf
             @method('PUT')
 
             <div class="mb-4">
                 <label for="naam" class="block mb-1 font-semibold">Naam van de Pizza</label>
-                <input type="text" id="naam" name="naam"
-                       class="w-full px-4 py-2 border rounded"
-                       value="{{ old('naam', $pizza->naam) }}"
-                       required>
+                <input
+                    type="text"
+                    id="naam"
+                    name="naam"
+                    class="w-full px-4 py-2 border rounded"
+                    value="{{ old('naam', $pizza->naam) }}"
+                    required
+                >
             </div>
 
             <div class="mb-4">
                 <label class="block mb-1 font-semibold">Selecteer de grootte</label>
                 <div class="flex items-center space-x-4">
-                @foreach ($sizes as $size)
-    <label>
-        <input type="radio"
-               name="size_id"
-               value="{{ $size->id }}"
-               {{ old('size_id', $pizza->size_id) == $size->id ? 'checked' : '' }}>
-        {{ $size->naam }}
-    </label>
-@endforeach
-
+                    @foreach ($sizes as $size)
+                        <label>
+                            <input
+                                type="radio"
+                                name="size_id"
+                                value="{{ $size->id }}"
+                                {{ old('size_id', $pizza->size_id) == $size->id ? 'checked' : '' }}
+                            >
+                            {{ $size->naam }}
+                        </label>
+                    @endforeach
                 </div>
             </div>
 
@@ -80,17 +85,41 @@
                 <label class="block mb-1 font-semibold">Selecteer ingrediënten</label>
                 @foreach ($ingredients as $ingredient)
                     <div class="flex items-center mb-1">
-                        <input type="checkbox"
-                               name="ingredienten[]"
-                               value="{{ $ingredient->id }}"
-                               class="mr-2"
-                               {{ $pizza->ingredienten->contains($ingredient->id) ? 'checked' : '' }}>
+                        <input
+                            type="checkbox"
+                            name="ingredienten[]"
+                            value="{{ $ingredient->id }}"
+                            class="mr-2"
+                            {{ $pizza->ingredienten->contains($ingredient->id) ? 'checked' : '' }}
+                        >
                         <span>
                             {{ $ingredient->naam }}
                             (&euro;{{ number_format($ingredient->prijs, 2, ',', '.') }})
                         </span>
                     </div>
                 @endforeach
+            </div>
+
+            @if($pizza->image)
+                <div class="mb-4">
+                    <p class="font-semibold mb-2">Huidige afbeelding:</p>
+                    <img
+                        src="{{ asset('storage/' . $pizza->image) }}"
+                        alt="Pizza afbeelding"
+                        class="w-48 h-auto border rounded"
+                    >
+                </div>
+            @endif
+
+            <div class="mb-4">
+                <label for="image" class="block mb-1 font-semibold">Afbeelding</label>
+                <input
+                    type="file"
+                    id="image"
+                    name="image"
+                    class="w-full px-4 py-2 border rounded"
+                    accept="image/*"
+                >
             </div>
 
             <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">

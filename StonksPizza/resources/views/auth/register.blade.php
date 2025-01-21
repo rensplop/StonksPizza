@@ -18,7 +18,6 @@
 </head>
 
 <body class="flex flex-col min-h-screen">
-    <!-- Header -->
     <header class="bg-yellow-500 text-white shadow-lg py-6">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-4xl font-bold tracking-wide">Pizzeria</h1>
@@ -32,7 +31,6 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="flex-grow flex items-center justify-center">
         <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
             <h2 class="text-3xl font-semibold text-center mb-8">Registreren</h2>
@@ -40,35 +38,30 @@
             <form method="POST" action="{{ route('register') }}">
                 @csrf
 
-                <!-- Name -->
                 <div class="mb-6">
                     <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Naam</label>
                     <input id="name" type="text" name="name" class="block w-full px-4 py-3 border rounded-md focus:ring-yellow-500 focus:border-yellow-500" :value="old('name')" required autofocus autocomplete="name" />
                     <x-input-error :messages="$errors->get('name')" class="mt-2 text-sm text-red-600" />
                 </div>
 
-                <!-- Email Address -->
                 <div class="mb-6">
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-2">Email</label>
                     <input id="email" type="email" name="email" class="block w-full px-4 py-3 border rounded-md focus:ring-yellow-500 focus:border-yellow-500" :value="old('email')" required autocomplete="username" />
                     <x-input-error :messages="$errors->get('email')" class="mt-2 text-sm text-red-600" />
                 </div>
 
-                <!-- Password -->
                 <div class="mb-6">
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Wachtwoord</label>
                     <input id="password" type="password" name="password" class="block w-full px-4 py-3 border rounded-md focus:ring-yellow-500 focus:border-yellow-500" required autocomplete="new-password" />
                     <x-input-error :messages="$errors->get('password')" class="mt-2 text-sm text-red-600" />
                 </div>
 
-                <!-- Confirm Password -->
                 <div class="mb-6">
                     <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-2">Bevestig wachtwoord</label>
                     <input id="password_confirmation" type="password" name="password_confirmation" class="block w-full px-4 py-3 border rounded-md focus:ring-yellow-500 focus:border-yellow-500" required autocomplete="new-password" />
                     <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2 text-sm text-red-600" />
                 </div>
 
-                <!-- Already Registered -->
                 <div class="flex items-center justify-between mb-8">
                     <a href="{{ route('login') }}" class="text-sm text-yellow-500 hover:underline">
                         Al geregistreerd?
@@ -81,7 +74,6 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-gray-800 text-gray-400 text-center py-4">
         <p>&copy; 2024 Pizzeria. All Rights Reserved. <a href="#" class="text-yellow-500 hover:underline">Privacy Policy</a></p>
     </footer>

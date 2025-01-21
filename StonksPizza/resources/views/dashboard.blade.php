@@ -18,7 +18,6 @@
 </head>
 
 <body class="flex flex-col min-h-screen">
-    <!-- Header -->
     <header class="bg-yellow-500 text-white shadow-lg py-6">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-4xl font-bold tracking-wide">Pizzeria</h1>
@@ -41,15 +40,8 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="flex-grow flex items-center justify-center">
-    @auth
-    @if(auth()->user()->hasRole('admin'))
-        <p>Welkom, Admin!</p>
-    @elseif(auth()->user()->hasRole('user'))
-        <p>Welkom, Gebruiker!</p>
-    @endif
-@endauth
+
 
         <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
             <h2 class="text-3xl font-semibold text-center mb-8">Welkom, {{ Auth::user()->name }}!</h2>
@@ -83,7 +75,6 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-gray-800 text-gray-400 text-center py-4">
         <p>&copy; 2024 Pizzeria. Alle rechten voorbehouden. <a href="#" class="text-yellow-500 hover:underline">Privacybeleid</a></p>
     </footer>
