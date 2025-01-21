@@ -6,24 +6,29 @@ use App\Http\Controllers\KlantController;
 use App\Http\Controllers\BestellingController;
 use App\Http\Controllers\BestelregelController;
 use App\Http\Controllers\IngredientController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\VoertuigController;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
+
+
 
 Route::resource('voertuigen', VoertuigController::class)->parameters([
     'voertuigen' => 'voertuig'
 ]);
 
-Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');
-Route::resource('pizza', PizzaController::class)->except(['index']);
+Route::resource('bestellingen', BestellingController::class);
+
 
 Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');
 Route::get('/pizza/create', [PizzaController::class, 'create'])->name('pizza.create');
 Route::resource('pizza', PizzaController::class)->except(['index']);
+
 Route::resource('klanten', KlantController::class);
-Route::resource('bestellingen', BestellingController::class);
+
+
 Route::resource('bestelregels', BestelregelController::class);
+
 Route::resource('ingredients', IngredientController::class);
 
 Route::middleware('auth')->group(function () {

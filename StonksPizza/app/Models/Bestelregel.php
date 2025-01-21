@@ -2,28 +2,28 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Bestelregel extends Model
 {
-    protected $fillable = ['aantal', 'afmeting'];
+    use HasFactory;
 
-    public function bestelling(): BelongsTo
+    protected $table = 'bestelregels';
+    protected $fillable = [
+        'aantal',
+        'afmeting',
+        'pizza_id',
+        'bestelling_id'
+    ];
+
+    public function bestelling()
     {
         return $this->belongsTo(Bestelling::class);
     }
 
-    public function pizza(): BelongsTo
+    public function pizza()
     {
         return $this->belongsTo(Pizza::class);
     }
-
-    public function regelPrijs(): float
-    {
-        return $this->aantal * $this->pizza->prijs();
-    }
-
-    protected $casts = ['afmeting' => PizzaAfmeting::class];
-    
 }

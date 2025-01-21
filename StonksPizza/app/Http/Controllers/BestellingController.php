@@ -2,63 +2,52 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Bestelling;
+use App\Models\Bestelregel;
+use App\Models\Pizza;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BestellingController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
     public function index()
     {
-        //
+        $pizzas = Pizza::all();
+        $bestelling = Bestelling::where('user_id', Auth::id())
+            ->where('status','open')
+            ->with('bestelregels.pizza')
+            ->first();
+        return view('Orders.index', compact('pizzas','bestelling'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
+        $request->validate([
+            'pizza_id' => 'required|exists:pizzas,id',
+        ]);
+        $bestelling = Bestelling::firstOrCreate([
+            'user_id' => Auth::id(),
+            'status' => 'open'
+        ], [
+            'datum' => now(),
+            'klant_id' => 1 
+        ]);
+        $regel = Bestelregel::where('bestelling_id',$bestelling->id)
+            ->where('pizza_id',$request->pizza_id)
+            ->first();
+        if($regel) {
+            $regel->aantal += 1;
+            $regel->save();
+        } else {
+            Bestelregel::create([
+                'bestelling_id' => $bestelling->id,
+                'pizza_id' => $request->pizza_id,
+                'aantal' => 1,
+                'afmeting' => 'Groot'
+            ]);
+        }
+        return redirect()
+            ->route('bestellingen.index')
+            ->with('success','Pizza toegevoegd aan bestelling');
     }
 }
