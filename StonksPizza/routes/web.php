@@ -68,4 +68,5 @@ Route::get('/logout', function () {
     return redirect('/mylogin');
 })->name('logout');
 
+// Auth scaffolding
 require __DIR__.'/auth.php';
