@@ -44,9 +44,9 @@
     <h2 class="text-3xl font-semibold text-center mb-4">Heerlijke Pizza, Vers Gemaakt</h2>
     <p class="text-center text-lg text-gray-600 max-w-2xl mx-auto mb-6">Welkom bij onze pizzeria! Geniet van onze vers gemaakte pizza's, bereid met de beste ingrediënten en perfect gebakken. Ervaar de smaak van traditie in elke hap.</p>
 
-    <div class="flex justify-center">
-        <a class="bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-red-600 transition duration-300 ease-in-out" href="{{ route('menu.index') }}">Bestel Nu</a>
-    </div>
+        <div class="flex justify-center">
+            <a class="bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-red-600 transition duration-300 ease-in-out" href="{{ route('menu.index') }}">Order Now</a>
+        </div>
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
         <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
