@@ -76,10 +76,11 @@
     </form>
 </main>
 
-<footer class="bg-gray-800 text-gray-200 text-center py-2">
-    <p>&copy; 2025 Pizzeria. Alle rechten voorbehouden.
-        <a href="#" class="text-yellow-500 hover:underline">Privacyverklaring</a>
-    </p>
-</footer>
+<footer class="bg-gray-800 text-gray-400 text-center py-4">
+        <p>
+            &copy; 2024 Pizzeria. Alle rechten voorbehouden.
+            <a href="#" class="text-yellow-500 hover:underline">Privacyverklaring</a>
+        </p>
+    </footer>
 </body>
 </html>
