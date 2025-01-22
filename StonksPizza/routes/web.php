@@ -16,6 +16,15 @@ Route::resource('voertuigen', VoertuigController::class)->parameters([
 ]);
 
 
+Route::get('/bestellingen', [BestellingController::class, 'index'])->name('bestellingen.index');
+Route::post('/bestellingen', [BestellingController::class, 'store'])->name('bestellingen.store');
+Route::delete('/bestelregel/{regel}', [BestellingController::class, 'destroyRegel'])->name('bestellingen.destroyRegel');
+
+Route::get('/status', [BestellingController::class, 'statusIndex'])->name('status.index');
+Route::patch('/status/annuleer/{id}', [BestellingController::class, 'annuleer'])->name('status.annuleer');
+Route::patch('/status/update/{id}', [BestellingController::class, 'updateStatus'])->name('status.updateStatus');
+
+
 Route::resource('bestellingen', BestellingController::class);
 
 Route::delete('/bestelregel/{regel}', [BestellingController::class, 'destroyRegel'])

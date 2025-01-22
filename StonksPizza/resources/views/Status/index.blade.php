@@ -6,7 +6,6 @@
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
-
     <header class="bg-yellow-500 text-white shadow-lg py-6">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-3xl font-bold">Pizzeria Status</h1>
@@ -17,7 +16,9 @@
                 <a href="{{ route('contact.index') }}" class="text-white hover:text-yellow-300">Contact</a>
                 @auth
                     @if(auth()->user()->hasRole('medewerker') || auth()->user()->hasRole('admin'))
-                        <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300">Voertuigen</a>
+                        <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300">
+                            Voertuigen
+                        </a>
                     @endif
                 @endauth
             </nav>
@@ -34,11 +35,12 @@
         @auth
             @if(auth()->user()->hasRole('medewerker') || auth()->user()->hasRole('admin'))
                 <h2 class="text-2xl font-bold mb-4">Alle Bestellingen (Medewerker/Admin)</h2>
-                @if(!empty($alleBestellingen) && count($alleBestellingen) > 0)
+                @if(isset($alleBestellingen) && count($alleBestellingen) > 0)
                     <table class="min-w-full bg-white rounded shadow">
                         <thead class="bg-gray-100">
                             <tr>
                                 <th class="px-4 py-2 text-left">ID</th>
+                                <th class="px-4 py-2 text-left">Gebruiker</th>
                                 <th class="px-4 py-2 text-left">Status</th>
                                 <th class="px-4 py-2 text-left">Bestelregels</th>
                                 <th class="px-4 py-2 text-left">Wijzig Status</th>
@@ -48,6 +50,13 @@
                             @foreach($alleBestellingen as $b)
                                 <tr class="border-b">
                                     <td class="px-4 py-2">{{ $b->id }}</td>
+                                    <td class="px-4 py-2">
+                                        @if($b->user)
+                                            {{ $b->user->name }}
+                                        @else
+                                            Onbekend
+                                        @endif
+                                    </td>
                                     <td class="px-4 py-2">{{ $b->status }}</td>
                                     <td class="px-4 py-2">
                                         @foreach($b->bestelregels as $regel)
@@ -59,6 +68,7 @@
                                             @csrf
                                             @method('PATCH')
                                             <select name="status" class="border rounded p-1 mr-2">
+                                                <option value="open" @selected($b->status=='open')>Open</option>
                                                 <option value="besteld" @selected($b->status=='besteld')>Besteld</option>
                                                 <option value="in voorbereiding" @selected($b->status=='in voorbereiding')>
                                                     In voorbereiding
@@ -69,7 +79,8 @@
                                                     Geannuleerd
                                                 </option>
                                             </select>
-                                            <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">
+                                            <button type="submit"
+                                                    class="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 rounded">
                                                 Wijzig
                                             </button>
                                         </form>
@@ -79,8 +90,9 @@
                         </tbody>
                     </table>
                 @else
-                    <p>Geen bestellingen gevonden.</p>
+                    <p>Er zijn geen bestellingen gevonden.</p>
                 @endif
+
             @else
                 <h2 class="text-2xl font-bold mb-4">Mijn Bestelling (Klant)</h2>
                 @if($bestelling)
@@ -94,33 +106,42 @@
                             @endforeach
                         </ul>
                         <div class="mt-4">
-                            <form action="{{ route('status.annuleer', $bestelling->id) }}" method="POST">
-                                @csrf
-                                @method('PATCH')
-                                <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
-                                    Annuleer Bestelling
-                                </button>
-                            </form>
+                            @if($bestelling->status != 'geannuleerd' && $bestelling->status != 'klaar')
+                                <form action="{{ route('status.annuleer', $bestelling->id) }}" method="POST">
+                                    @csrf
+                                    @method('PATCH')
+                                    <button type="submit"
+                                            class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded">
+                                        Annuleer Bestelling
+                                    </button>
+                                </form>
+                            @else
+                                <p class="text-gray-500">Deze bestelling kan niet meer worden aangepast.</p>
+                            @endif
                         </div>
                         <div class="mt-4">
                             <p class="italic text-gray-600">
                                 Voortgang:
                                 @if($bestelling->status == 'in voorbereiding')
-                                    Pizza wordt nu bereid...
+                                    De pizza wordt nu bereid...
                                 @elseif($bestelling->status == 'in oven')
-                                    Pizza is in de oven...
+                                    De pizza is in de oven...
                                 @elseif($bestelling->status == 'klaar')
-                                    Pizza is klaar!
+                                    De pizza is klaar!
                                 @elseif($bestelling->status == 'geannuleerd')
                                     Bestelling geannuleerd.
+                                @elseif($bestelling->status == 'open')
+                                    De bestelling staat nog open.
+                                @elseif($bestelling->status == 'besteld')
+                                    De bestelling is geplaatst en wordt zo voorbereid.
                                 @else
-                                    Bestelling staat op {{ $bestelling->status }}.
+                                    Huidige status: {{ $bestelling->status }}
                                 @endif
                             </p>
                         </div>
                     </div>
                 @else
-                    <p>Je hebt momenteel geen actieve bestelling.</p>
+                    <p>Je hebt momenteel geen bestelling.</p>
                 @endif
             @endif
         @else
