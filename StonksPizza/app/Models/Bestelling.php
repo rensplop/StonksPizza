@@ -2,32 +2,25 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Bestelling extends Model
 {
-    protected $fillable = ['datum', 'status'];
+    protected $table = 'bestellingen';
+    protected $fillable = [
+        'datum',
+        'status',
+        'user_id'
+    ];
 
-    public function klant(): BelongsTo
-    {
-        return $this->belongsTo(Klant::class);
-    }
-
-    public function bestelregels(): HasMany
+    public function bestelregels()
     {
         return $this->hasMany(Bestelregel::class);
     }
 
-    public function totaalPrijs(): float
+    public function user()
     {
-        return $this->bestelregels->sum(function ($regel) {
-            return $regel->regelPrijs();
-        });
+        return $this->belongsTo(User::class);
     }
-
-    protected $casts = ['status' => BestelStatus::class];
-    
 }
-

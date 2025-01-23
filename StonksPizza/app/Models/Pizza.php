@@ -2,13 +2,17 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Pizza extends Model
 {
+    use HasFactory;
+
     protected $fillable = [
         'naam',
-        'size_id'
+        'size_id',
+        'image'
     ];
 
     public function ingredienten()

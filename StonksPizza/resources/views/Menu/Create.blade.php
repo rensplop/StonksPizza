@@ -2,91 +2,131 @@
 <html lang="nl">
 <head>
     <meta charset="UTF-8">
-    <title>Nieuwe Pizza Aanmaken</title>
+    <title>Nieuwe Pizza Toevoegen</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+          integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
 
-<header class="bg-yellow-500 text-white py-4 shadow">
-        <div class="container mx-auto px-4">
-            <h1 class="text-3xl font-bold">Stonks Pizza</h1>
-            <nav class="space-x-6">
-                <a href="{{ url('/') }}" class="text-white hover:text-yellow-300 transition duration-300">Home</a>
-                <a href="{{ route('menu.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Menu</a>
-                <a href="{{ route('about.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Over ons</a>
-                <a href="{{ route('contact.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Contact</a>
-                @auth
-                @if(auth()->user()->hasRole('admin'))
-                <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Voertuigen</a>
-                <a href="{{ route('medewerkers.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Medewerkers</a>
-                @endif
-                @endauth
-                @auth
-                    <a href="{{ route('dashboard') }}" class="text-white hover:text-yellow-300 transition duration-300">Account</a>
-                @else
-                    <a href="{{ route('login') }}" class="text-white hover:text-yellow-300 transition duration-300">Inloggen</a>
-                @endauth
-            </nav>
+<header class="bg-yellow-500 text-white py-4 shadow relative z-50">
+    <div class="container mx-auto px-4 flex justify-between items-center">
+        <div>
+            <h1 class="text-3xl font-bold">Pizzeria – Nieuwe Pizza</h1>
         </div>
-    </header>
-
-
-    <main class="container mx-auto px-4 py-8 flex-grow">
-        <h2 class="text-2xl font-semibold mb-6">Maak een nieuwe pizza aan</h2>
-
-        @if ($errors->any())
-            <div class="bg-red-500 text-white p-2 mb-4 rounded">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>- {{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
-
-        <form action="{{ route('pizza.store') }}" method="POST" class="bg-white p-6 rounded shadow-md">
-            @csrf
-            <div class="mb-4">
-                <label for="naam" class="block mb-1 font-semibold">Naam van de Pizza</label>
-                <input type="text" id="naam" name="naam" class="w-full px-4 py-2 border rounded" required>
-            </div>
-
-            <div class="mb-4">
-    <label class="block mb-1 font-semibold">Selecteer de grootte</label>
-    <div class="flex items-center space-x-4">
-        @foreach($sizes as $size)
-            <label>
-                <input type="radio" name="size_id" value="{{ $size->id }}">
-                {{ $size->naam }}
-            </label>
-        @endforeach
-    </div>
-</div>
-
-
-            <div class="mb-4">
-                <label class="block mb-1 font-semibold">Selecteer ingrediÃ«nten</label>
-                @foreach($ingredients as $ingredient)
-                    <div class="flex items-center mb-1">
-                        <input type="checkbox" name="ingredienten[]" value="{{ $ingredient->id }}" class="mr-2">
-                        <span>
-                            {{ $ingredient->naam }}
-                            (&euro;{{ number_format($ingredient->prijs, 2, ',', '.') }})
-                        </span>
+        <nav class="hidden md:flex space-x-4">
+            <a href="{{ url('/') }}" class="hover:bg-yellow-600 px-3 py-2 rounded">Home</a>
+            <a href="{{ route('menu.index') }}" class="hover:bg-yellow-600 px-3 py-2 rounded">Menu</a>
+            <a href="{{ route('about.index') }}" class="hover:bg-yellow-600 px-3 py-2 rounded">Over ons</a>
+            <a href="{{ route('contact.index') }}" class="hover:bg-yellow-600 px-3 py-2 rounded">Contact</a>
+        </nav>
+        <div class="flex items-center space-x-4">
+            @auth
+                <div class="relative group inline-block">
+                    <button
+                        class="inline-flex items-center space-x-2 focus:outline-none hover:bg-yellow-600 px-3 py-2 rounded transition"
+                    >
+                        <i class="fa-solid fa-user"></i>
+                        <span>{{ auth()->user()->name }}</span>
+                        <i class="fa-solid fa-chevron-down text-sm"></i>
+                    </button>
+                    <div
+                        class="absolute right-0 top-full w-48 bg-white text-gray-800 py-2 rounded shadow
+                               opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto
+                               transition z-50"
+                    >
+                        @if(auth()->user()->hasRole('admin') || auth()->user()->hasRole('medewerker'))
+                            <a href="{{ route('voertuigen.index') }}" class="block px-4 py-2 hover:bg-gray-100">
+                                Voertuigen
+                            </a>
+                        @endif
+                        @php
+                            $hasBestelling = \App\Models\Bestelling::where('user_id', auth()->id())->exists();
+                        @endphp
+                        @if($hasBestelling)
+                            <a href="{{ route('status.index') }}" class="block px-4 py-2 hover:bg-gray-100">
+                                Status
+                            </a>
+                        @endif
+                        <a href="{{ route('dashboard') }}" class="block px-4 py-2 hover:bg-gray-100">
+                            Profiel
+                        </a>
+                        <form action="{{ route('logout') }}" method="GET">
+                            <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-100">
+                                Uitloggen
+                            </button>
+                        </form>
                     </div>
+                </div>
+            @else
+                <a href="{{ route('login') }}" class="hover:bg-yellow-600 px-3 py-2 rounded">
+                    Inloggen
+                </a>
+            @endauth
+        </div>
+    </div>
+</header>
+
+<main class="container mx-auto px-4 py-8 flex-grow">
+    <h2 class="text-2xl font-semibold mb-6">Maak een nieuwe pizza aan</h2>
+    @if ($errors->any())
+        <div class="bg-red-500 text-white p-2 mb-4 rounded">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>- {{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+    <form action="{{ route('pizza.store') }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded shadow-md">
+        @csrf
+        <div class="mb-4">
+            <label for="naam" class="block mb-1 font-semibold">Naam van de Pizza</label>
+            <input type="text" id="naam" name="naam" class="w-full px-4 py-2 border rounded" required>
+        </div>
+        <div class="mb-4">
+            <p class="font-semibold">Selecteer de grootte</p>
+            <div class="flex items-center space-x-4 mt-1">
+                @foreach($sizes as $size)
+                    <label>
+                        <input type="radio" name="size_id" value="{{ $size->id }}">
+                        {{ $size->naam }}
+                    </label>
                 @endforeach
             </div>
+        </div>
+        <div class="mb-4">
+            <p class="font-semibold">Selecteer ingrediënten</p>
+            @foreach($ingredients as $ingredient)
+                <label class="block">
+                    <input type="checkbox" name="ingredienten[]" value="{{ $ingredient->id }}">
+                    {{ $ingredient->naam }} (&euro;{{ number_format($ingredient->prijs, 2, ',', '.') }})
+                </label>
+            @endforeach
+        </div>
+        <div class="mb-4">
+            <label for="image" class="block mb-1 font-semibold">Afbeelding (optioneel)</label>
+            <input 
+                type="file" 
+                id="image" 
+                name="image" 
+                class="w-full px-4 py-2 border rounded" 
+                accept="image/*"
+            >
+        </div>
+        <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
+            Pizza Aanmaken
+        </button>
+    </form>
+</main>
 
-            <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
-                Pizza Aanmaken
-            </button>
-        </form>
-    </main>
-
-    <footer class="bg-gray-800 text-gray-200 text-center py-2">
-        <p>&copy; 2024 Pizzeria. Alle rechten voorbehouden.
-            <a href="#" class="text-yellow-500 hover:underline">Privacyverklaring</a>
-        </p>
-    </footer>
+<footer class="bg-gray-800 text-gray-200 text-center py-2">
+    <p>
+        &copy; 2025 Pizzeria. Alle rechten voorbehouden.
+        <a href="#" class="text-yellow-500 hover:underline">Privacyverklaring</a>
+    </p>
+</footer>
 </body>
 </html>

@@ -8,28 +8,20 @@
 <body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
 
 <header class="bg-yellow-500 text-white py-4 shadow">
-        <div class="container mx-auto px-4">
-            <h1 class="text-3xl font-bold">Stonks Pizza</h1>
-            <nav class="space-x-6">
-                <a href="{{ url('/') }}" class="text-white hover:text-yellow-300 transition duration-300">Home</a>
-                <a href="{{ route('menu.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Menu</a>
-                <a href="{{ route('about.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Over ons</a>
-                <a href="{{ route('contact.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Contact</a>
-                @auth
-                @if(auth()->user()->hasRole('admin'))
-                <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Voertuigen</a>
-                <a href="{{ route('medewerkers.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Medewerkers</a>
-                @endif
-                @endauth
-                @auth
-                    <a href="{{ route('dashboard') }}" class="text-white hover:text-yellow-300 transition duration-300">Account</a>
-                @else
-                    <a href="{{ route('login') }}" class="text-white hover:text-yellow-300 transition duration-300">Inloggen</a>
-                @endauth
-            </nav>
-        </div>
-    </header>
-
+    <div class="container mx-auto px-4">
+        <h1 class="text-3xl font-bold">Pizzeria - Voertuigen</h1>
+        <nav class="space-x-6">
+            <a href="{{ url('/') }}" class="text-white hover:text-yellow-300 transition duration-300">Home</a>
+            <a href="{{ route('menu.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Menu</a>
+            <a href="{{ route('voertuigen.index') }}" class="text-white hover:text-yellow-300 transition duration=300">Voertuigen</a>
+            @auth
+                <a href="{{ route('dashboard') }}" class="text-white hover:text-yellow-300 transition duration-300">Account</a>
+            @else
+                <a href="{{ route('login') }}" class="text-white hover:text-yellow-300 transition duration-300">Inloggen</a>
+            @endauth
+        </nav>
+    </div>
+</header>
 
 <main class="container mx-auto px-4 py-8 flex-grow">
     <h2 class="text-2xl font-semibold mb-6">Maak een nieuw voertuig aan</h2>
@@ -44,7 +36,8 @@
         </div>
     @endif
 
-    <form action="{{ route('voertuigen.store') }}" method="POST" class="bg-white p-6 rounded shadow-md">
+    <!-- Belangrijk: enctype="multipart/form-data" voor file uploads -->
+    <form action="{{ route('voertuigen.store') }}" method="POST" enctype="multipart/form-data" class="bg-white p-6 rounded shadow-md">
         @csrf
         
         <div class="mb-4">
@@ -68,7 +61,10 @@
             </select>
         </div>
 
-
+        <div class="mb-4">
+            <label for="image" class="block mb-1 font-semibold">Afbeelding (optioneel)</label>
+            <input type="file" id="image" name="image" class="w-full px-4 py-2 border rounded" accept="image/*">
+        </div>
 
         <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">
             Voertuig Aanmaken

@@ -9,9 +9,9 @@
 </head>
 
 <body class="flex flex-col min-h-screen">
-<header class="bg-yellow-500 text-white py-4 shadow">
-        <div class="container mx-auto px-4">
-            <h1 class="text-3xl font-bold">Stonks Pizza</h1>
+    <header class="bg-yellow-500 text-white shadow-lg py-6">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-4xl font-bold tracking-wide">Pizzeria</h1>
             <nav class="space-x-6">
                 <a href="{{ url('/') }}" class="text-white hover:text-yellow-300 transition duration-300">Home</a>
                 <a href="{{ route('menu.index') }}" class="text-white hover:text-yellow-300 transition duration-300">Menu</a>
@@ -32,12 +32,10 @@
         </div>
     </header>
 
-
     <main class="flex-grow flex items-center justify-center">
         <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
             <h2 class="text-3xl font-semibold text-center mb-8">Profiel Bewerken</h2>
 
-            <!-- Session Status -->
             @if (session('status'))
                 <div class="mb-4 text-green-600">
                     {{ session('status') }}
@@ -48,7 +46,6 @@
             @csrf
             @method('PATCH')
 
-                <!-- Name -->
                 <div class="mb-6">
                     <label for="name" class="block text-sm font-medium text-gray-700 mb-2">Naam</label>
                     <input id="name" type="text" name="name" value="{{ old('name', $user->name) }}" class="block w-full px-4 py-3 border rounded-md focus:ring-yellow-500 focus:border-yellow-500" required />
@@ -57,7 +54,6 @@
                     @enderror
                 </div>
 
-                <!-- Email -->
                 <div class="mb-6">
                     <label for="email" class="block text-sm font-medium text-gray-700 mb-2">E-mail</label>
                     <input id="email" type="email" name="email" value="{{ old('email', $user->email) }}" class="block w-full px-4 py-3 border rounded-md focus:ring-yellow-500 focus:border-yellow-500" required />
@@ -66,7 +62,6 @@
                     @enderror
                 </div>
 
-                <!-- Password -->
                 <div class="mb-6">
                     <label for="password" class="block text-sm font-medium text-gray-700 mb-2">Nieuw Wachtwoord (optioneel)</label>
                     <input id="password" type="password" name="password" class="block w-full px-4 py-3 border rounded-md focus:ring-yellow-500 focus:border-yellow-500" />
@@ -75,7 +70,6 @@
                     @enderror
                 </div>
 
-                <!-- Confirm Password -->
                 <div class="mb-6">
                     <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-2">Bevestig Wachtwoord</label>
                     <input id="password_confirmation" type="password" name="password_confirmation" class="block w-full px-4 py-3 border rounded-md focus:ring-yellow-500 focus:border-yellow-500" />
@@ -93,7 +87,6 @@
         </div>
     </main>
 
-    <!-- Footer -->
     <footer class="bg-gray-800 text-gray-400 text-center py-4">
         <p>&copy; 2024 Pizzeria. Alle rechten voorbehouden. <a href="#" class="text-yellow-500 hover:underline">Privacybeleid</a></p>
     </footer>

@@ -6,30 +6,48 @@ use App\Http\Controllers\KlantController;
 use App\Http\Controllers\BestellingController;
 use App\Http\Controllers\BestelregelController;
 use App\Http\Controllers\IngredientController;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\VoertuigController;
-use App\Http\Controllers\MedewerkerController;
+use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::resource('voertuigen', VoertuigController::class)->parameters([
     'voertuigen' => 'voertuig'
 ]);
 
-Route::resource('medewerkers', MedewerkerController::class)->parameters([
-    'medewerkers' => 'medewerker'
-]);
 
-Route::get('/bestelling', [BestelregelController::class, 'index'])->name('orders.index');
+Route::get('/bestellingen', [BestellingController::class, 'index'])->name('bestellingen.index');
+Route::post('/bestellingen', [BestellingController::class, 'store'])->name('bestellingen.store');
+Route::delete('/bestelregel/{regel}', [BestellingController::class, 'destroyRegel'])->name('bestellingen.destroyRegel');
 
-Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');
-Route::resource('pizza', PizzaController::class)->except(['index']);
+Route::get('/status', [BestellingController::class, 'statusIndex'])->name('status.index');
+Route::patch('/status/annuleer/{id}', [BestellingController::class, 'annuleer'])->name('status.annuleer');
+Route::patch('/status/update/{id}', [BestellingController::class, 'updateStatus'])->name('status.updateStatus');
+
+
+Route::resource('bestellingen', BestellingController::class);
+
+Route::delete('/bestelregel/{regel}', [BestellingController::class, 'destroyRegel'])
+    ->name('bestellingen.destroyRegel');
+
+Route::get('/status', [BestellingController::class, 'statusIndex'])->name('status.index');
+
+Route::patch('/status/annuleer/{id}', [BestellingController::class, 'annuleer'])
+    ->name('status.annuleer');
+
+Route::patch('/status/update/{id}', [BestellingController::class, 'updateStatus'])
+    ->name('status.updateStatus');
+
+Route::resource('bestellingen', BestellingController::class);
+
+Route::delete('/bestelregel/{regel}', [BestellingController::class, 'destroyRegel'])
+    ->name('bestellingen.destroyRegel');
 
 Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');
 Route::get('/pizza/create', [PizzaController::class, 'create'])->name('pizza.create');
 Route::resource('pizza', PizzaController::class)->except(['index']);
+
 Route::resource('klanten', KlantController::class);
-Route::resource('bestellingen', BestellingController::class);
 Route::resource('bestelregels', BestelregelController::class);
 Route::resource('ingredients', IngredientController::class);
 
