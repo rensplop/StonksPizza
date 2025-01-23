@@ -14,6 +14,20 @@
         nav ul li a:hover {
             transform: translateY(-5px);
         }
+        body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+        }   
+
+        main {
+            flex: 1;
+        }
+
+        footer {
+            margin-top: auto;
+        }
     </style>
 </head>
 
@@ -42,13 +56,6 @@
 
 
     <main class="flex-grow flex items-center justify-center">
-    @auth
-    @if(auth()->user()->hasRole('admin'))
-        <p>Welkom, Admin!</p>
-    @elseif(auth()->user()->hasRole('user'))
-        <p>Welkom, Gebruiker!</p>
-    @endif
-@endauth
 
         <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
             <h2 class="text-3xl font-semibold text-center mb-8">Welkom, {{ Auth::user()->name }}!</h2>

@@ -10,10 +10,17 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\VoertuigController;
+use App\Http\Controllers\MedewerkerController;
 
 Route::resource('voertuigen', VoertuigController::class)->parameters([
     'voertuigen' => 'voertuig'
 ]);
+
+Route::resource('medewerkers', MedewerkerController::class)->parameters([
+    'medewerkers' => 'medewerker'
+]);
+
+Route::get('/bestelling', [BestelregelController::class, 'index'])->name('orders.index');
 
 Route::get('/menu', [PizzaController::class, 'index'])->name('menu.index');
 Route::resource('pizza', PizzaController::class)->except(['index']);

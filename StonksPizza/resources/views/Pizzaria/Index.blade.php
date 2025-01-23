@@ -14,6 +14,26 @@
         nav ul li a:hover {
             transform: translateY(-5px);
         }
+        .grid img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 0.375rem;
+        }
+        body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+        }   
+
+        main {
+            flex: 1;
+        }
+
+        footer {
+            margin-top: auto;
+        }
     </style>
 </head>
 
@@ -45,34 +65,35 @@
     <p class="text-center text-lg text-gray-600 max-w-2xl mx-auto mb-6">Welkom bij onze pizzeria! Geniet van onze vers gemaakte pizza's, bereid met de beste ingrediënten en perfect gebakken. Ervaar de smaak van traditie in elke hap.</p>
 
         <div class="flex justify-center">
-            <a class="bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-red-600 transition duration-300 ease-in-out" href="{{ route('menu.index') }}">Order Now</a>
+            <a class="bg-red-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-red-600 transition duration-300 ease-in-out" href="{{ route('orders.index') }}">Order Now</a>
         </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-        <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
-            <img src="/Images/margherita.jpg" alt="Klassieke Margherita" class="w-full rounded-md mb-4">
-            <h3 class="text-xl font-semibold mb-2">Klassieke Margherita</h3>
-            <p class="text-gray-600">Een tijdloze favoriet met verse tomaten, mozzarella en basilicum.</p>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
+            <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
+                <img src="/Images/margherita.jpg" alt="Klassieke Margherita" class="w-full rounded-md mb-4">
+                <h3 class="text-xl font-semibold mb-2">Klassieke Margherita</h3>
+                <p class="text-gray-600">Een tijdloze favoriet met verse tomaten, mozzarella en basilicum.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
+                <img src="/Images/pepperoni.webp" alt="Pepperoni Festijn" class="w-full rounded-md mb-4">
+                <h3 class="text-xl font-semibold mb-2">Pepperoni Festijn</h3>
+                <p class="text-gray-600">Belegd met pittige pepperoni en smeuïge mozzarella kaas.</p>
+            </div>
+            <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
+                <img src="/Images/veggie.webp" alt="Vegetarisch Genot" class="w-full rounded-md mb-4">
+                <h3 class="text-xl font-semibold mb-2">Vegetarisch Genot</h3>
+                <p class="text-gray-600">Een kleurrijke mix van verse groenten op een bed van smaakvolle tomatensaus.</p>
+            </div>
         </div>
-        <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
-            <img src="/Images/pepperoni.webp" alt="Pepperoni Festijn" class="w-full rounded-md mb-4">
-            <h3 class="text-xl font-semibold mb-2">Pepperoni Festijn</h3>
-            <p class="text-gray-600">Belegd met pittige pepperoni en smeuïge mozzarella kaas.</p>
-        </div>
-        <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
-            <img src="/Images/veggie.webp" alt="Vegetarisch Genot" class="w-full rounded-md mb-4">
-            <h3 class="text-xl font-semibold mb-2">Vegetarisch Genot</h3>
-            <p class="text-gray-600">Een kleurrijke mix van verse groenten op een bed van smaakvolle tomatensaus.</p>
-        </div>
-    </div>
+
 </main>
 
 <footer class="bg-gray-800 text-gray-400 text-center py-4">
-    <p>
-        &copy; 2024 Pizzeria. Alle rechten voorbehouden.
-        <a href="#" class="text-yellow-500 hover:underline">Privacyverklaring</a>
-    </p>
-</footer>
+        <p>
+            &copy; 2024 Pizzeria. Alle rechten voorbehouden.
+            <a href="#" class="text-yellow-500 hover:underline">Privacyverklaring</a>
+        </p>
+    </footer>
 
 </body>
 </html>
