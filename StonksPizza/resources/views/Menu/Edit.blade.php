@@ -11,17 +11,24 @@
 </head>
 <body class="bg-gray-100 text-gray-800 min-h-screen flex flex-col">
 
-<header class="bg-yellow-500 text-white py-4 shadow relative z-50">
+<header class="bg-yellow-500 text-white shadow-lg py-4 relative z-50">
     <div class="container mx-auto px-4 flex justify-between items-center">
-        <div>
-            <h1 class="text-3xl font-bold">Pizzeria – Edit Pizza</h1>
+        <div class="flex items-center space-x-4">
+            <a href="{{ url('/') }}" class="text-2xl font-bold tracking-wide">Pizzeria</a>
+            <nav class="hidden md:flex space-x-4">
+                <a href="{{ route('menu.index') }}" class="hover:bg-yellow-600 px-3 py-2 rounded">Menu</a>
+                <a href="{{ route('about.index') }}" class="hover:bg-yellow-600 px-3 py-2 rounded">Over ons</a>
+                <a href="{{ route('contact.index') }}" class="hover:bg-yellow-600 px-3 py-2 rounded">Contact</a>
+                @auth
+                    @php
+                        $hasBestelling = \App\Models\Bestelling::where('user_id', auth()->id())->exists();
+                    @endphp
+                    @if($hasBestelling)
+                        <a href="{{ route('status.index') }}" class="hover:bg-yellow-600 px-3 py-2 rounded">Status</a>
+                    @endif
+                @endauth
+            </nav>
         </div>
-        <nav class="hidden md:flex space-x-4">
-            <a href="{{ url('/') }}" class="hover:bg-yellow-600 px-3 py-2 rounded">Home</a>
-            <a href="{{ route('menu.index') }}" class="hover:bg-yellow-600 px-3 py-2 rounded">Menu</a>
-            <a href="{{ route('about.index') }}" class="hover:bg-yellow-600 px-3 py-2 rounded">Over ons</a>
-            <a href="{{ route('contact.index') }}" class="hover:bg-yellow-600 px-3 py-2 rounded">Contact</a>
-        </nav>
         <div class="flex items-center space-x-4">
             @auth
                 <div class="relative group inline-block">
@@ -42,19 +49,29 @@
                                 Voertuigen
                             </a>
                         @endif
+
+                        @if (auth()->user()->hasRole('admin'))
+                            <a href="{{ route('medewerker.index') }}" class="block px-4 py-2 hover:bg-gray-100">
+                                Medewerkers
+                            </a>
+                        @endif
+
                         @php
-                            $hasBestelling = \App\Models\Bestelling::where('user_id', auth()->id())->exists();
+                            $hasBestellingDrop = \App\Models\Bestelling::where('user_id', auth()->id())->exists();
                         @endphp
-                        @if($hasBestelling)
+                        @if($hasBestellingDrop)
                             <a href="{{ route('status.index') }}" class="block px-4 py-2 hover:bg-gray-100">
                                 Status
                             </a>
                         @endif
+
                         <a href="{{ route('dashboard') }}" class="block px-4 py-2 hover:bg-gray-100">
                             Profiel
                         </a>
+
                         <form action="{{ route('logout') }}" method="GET">
-                            <button type="submit" class="w-full text-left px-4 py-2 hover:bg-gray-100">
+                            <button type="submit"
+                                    class="w-full text-left px-4 py-2 hover:bg-gray-100">
                                 Uitloggen
                             </button>
                         </form>

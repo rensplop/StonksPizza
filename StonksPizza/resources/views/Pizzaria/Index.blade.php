@@ -73,6 +73,12 @@
                             </a>
                         @endif
 
+                        @if (auth()->user()->hasRole('admin'))
+                            <a href="{{ route('medewerker.index') }}" class="block px-4 py-2 hover:bg-gray-100">
+                                Medewerkers
+                            </a>
+                        @endif
+
                         @php
                             $hasBestellingDrop = \App\Models\Bestelling::where('user_id', auth()->id())->exists();
                         @endphp

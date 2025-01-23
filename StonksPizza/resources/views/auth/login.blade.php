@@ -18,7 +18,6 @@
 </head>
 
 <body class="flex flex-col min-h-screen">
-    <!-- Header -->
     <header class="bg-yellow-500 text-white shadow-lg py-6">
         <div class="container mx-auto flex justify-between items-center">
             <h1 class="text-4xl font-bold tracking-wide">Pizzeria</h1>
@@ -42,7 +41,6 @@
         </div>
     </header>
 
-    <!-- Main Content -->
     <main class="flex-grow flex items-center justify-center">
         <div class="max-w-md w-full bg-white rounded-lg shadow-lg p-8">
             <h2 class="text-3xl font-semibold text-center mb-8">Inloggen</h2>
