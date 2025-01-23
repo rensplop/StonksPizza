@@ -9,6 +9,29 @@
           integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
           crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
+<style>
+    .grid img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+        border-radius: 0.375rem;
+    }
+    body {
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    main {
+        flex: 1;
+    }
+
+    footer {
+        margin-top: auto;
+    }
+</style>
+
 <body class="bg-gray-100 text-gray-800 font-sans min-h-screen flex flex-col">
 
 <header class="bg-yellow-500 text-white shadow-lg py-4 relative z-50">
@@ -94,22 +117,23 @@
         </a>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-8">
-        <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
-            <img src="/Images/margherita.jpg" alt="Klassieke Margherita" class="w-full rounded-md mb-4" />
-            <h3 class="text-xl font-semibold mb-2">Klassieke Margherita</h3>
-            <p class="text-gray-600">Een tijdloze favoriet, belegd met verse tomaten, mozzarella en basilicum.</p>
-        </div>
-        <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
-            <img src="/Images/pepperoni.webp" alt="Pepperoni Festijn" class="w-full rounded-md mb-4" />
-            <h3 class="text-xl font-semibold mb-2">Pepperoni Festijn</h3>
-            <p class="text-gray-600">Rijkelijk belegd met pittige pepperoni en smeuïge mozzarella.</p>
-        </div>
-        <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
-            <img src="/Images/veggie.webp" alt="Veggie Genot" class="w-full rounded-md mb-4" />
-            <h3 class="text-xl font-semibold mb-2">Veggie Genot</h3>
-            <p class="text-gray-600">Een kleurrijke mix van verse groenten op een laag van smaakvolle tomatensaus.</p>
-        </div>
+    <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
+        <img src="/Images/margherita.jpg" alt="Klassieke Margherita" class="w-full rounded-md mb-4">
+        <h3 class="text-xl font-semibold mb-2">Klassieke Margherita</h3>
+        <p class="text-gray-600">Een tijdloze favoriet met verse tomaten, mozzarella en basilicum.</p>
     </div>
+    <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
+        <img src="/Images/pepperoni.webp" alt="Pepperoni Festijn" class="w-full rounded-md mb-4">
+        <h3 class="text-xl font-semibold mb-2">Pepperoni Festijn</h3>
+        <p class="text-gray-600">Belegd met pittige pepperoni en smeuïge mozzarella kaas.</p>
+    </div>
+    <div class="bg-white rounded-lg shadow-md p-4 hover:shadow-lg transform hover:scale-105 transition duration-300">
+        <img src="/Images/veggie.webp" alt="Vegetarisch Genot" class="w-full rounded-md mb-4">
+        <h3 class="text-xl font-semibold mb-2">Vegetarisch Genot</h3>
+        <p class="text-gray-600">Een kleurrijke mix van verse groenten op een bed van smaakvolle tomatensaus.</p>
+    </div>
+</div>
+
 </main>
 
 <footer class="bg-gray-800 text-gray-400 text-center py-4 mt-8">

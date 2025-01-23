@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MedewerkerController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PizzaController;
 use App\Http\Controllers\KlantController;
@@ -15,6 +16,9 @@ Route::resource('voertuigen', VoertuigController::class)->parameters([
     'voertuigen' => 'voertuig'
 ]);
 
+Route::resource('medewerkers', MedewerkerController::class)->parameters([
+    'medewerkers' => 'medewerker'
+]);
 
 Route::get('/bestellingen', [BestellingController::class, 'index'])->name('bestellingen.index');
 Route::post('/bestellingen', [BestellingController::class, 'store'])->name('bestellingen.store');
